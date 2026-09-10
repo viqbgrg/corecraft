@@ -16,8 +16,14 @@ describe('binary representation', () => {
     expect(binaryResult(s)).toEqual({ result: 0, carry: 1, full: 256 })
   })
   it('uses real truth tables for AND, OR and XOR', () => {
-    for (const [operation, result] of [['AND', 10], ['OR', 47], ['XOR', 37]] as const) {
-      expect(binaryResult(transitionBinary(initialBinary(), { type: 'operation', value: operation })).result).toBe(result)
+    for (const [operation, result] of [
+      ['AND', 10],
+      ['OR', 47],
+      ['XOR', 37],
+    ] as const) {
+      expect(
+        binaryResult(transitionBinary(initialBinary(), { type: 'operation', value: operation })).result,
+      ).toBe(result)
     }
   })
   it('converts binary inputs and rejects invalid or oversized representations', () => {
@@ -75,7 +81,11 @@ describe('inclusive direct-mapped cache', () => {
     expect(s.source).toBe('RAM')
   })
   it('compares identical workloads from cold caches', () => {
-    expect(cacheSequence(true).slice().sort((a, b) => a - b)).toEqual(cacheSequence())
+    expect(
+      cacheSequence(true)
+        .slice()
+        .sort((a, b) => a - b),
+    ).toEqual(cacheSequence())
     let s = transitionCache(initialCache(), { type: 'sequential' })
     s = transitionCache(s, { type: 'shuffled' })
     expect(s.comparisons.sequential?.rate).toBe(75)

@@ -1,5 +1,14 @@
 import { describe, expect, it } from 'vitest'
-import { allKeys, allNodes, createBPlus, deleteBPlus, insertBPlus, minimum, rangeBPlus, searchBPlus } from '../../src/experiments/structures/bplus-tree'
+import {
+  allKeys,
+  allNodes,
+  createBPlus,
+  deleteBPlus,
+  insertBPlus,
+  minimum,
+  rangeBPlus,
+  searchBPlus,
+} from '../../src/experiments/structures/bplus-tree'
 import type { BPlusNode, BPlusTree } from '../../src/experiments/structures/bplus-tree'
 import { initialBtree, transitionBtree, presentBtree } from '../../src/experiments/models/btree'
 
@@ -19,14 +28,14 @@ function assertTree(tree: BPlusTree, expected: number[]) {
       expect(n.children.length).toBeGreaterThanOrEqual(2)
       expect(n.children.length).toBeLessThanOrEqual(4)
       expect(n.keys).toEqual(n.children.slice(1).map(minimum))
-      n.children.forEach(c => check(c, depth + 1, false))
+      n.children.forEach((c) => check(c, depth + 1, false))
     }
   }
   check(tree.root, 0, true)
   expect(depths.size).toBe(1)
   expect(allKeys(tree)).toEqual([...expected].sort((a, b) => a - b))
   for (let i = 0; i < leaves.length; i++) expect(leaves[i]!.next).toBe(leaves[i + 1]?.id ?? null)
-  expect(new Set(allNodes(tree).map(n => n.id)).size).toBe(allNodes(tree).length)
+  expect(new Set(allNodes(tree).map((n) => n.id)).size).toBe(allNodes(tree).length)
 }
 function shuffled(seed: number, count: number) {
   const list = Array.from({ length: count }, (_, i) => i)
@@ -40,7 +49,10 @@ function shuffled(seed: number, count: number) {
 describe('B+Tree structural invariants', () => {
   it('splits leaves and internal nodes while retaining all records and leaf links', () => {
     const tree = createBPlus(Array.from({ length: 64 }, (_, i) => i))
-    assertTree(tree, Array.from({ length: 64 }, (_, i) => i))
+    assertTree(
+      tree,
+      Array.from({ length: 64 }, (_, i) => i),
+    )
     for (let key = 0; key < 64; key++) {
       const result = searchBPlus(tree, key)
       expect(result.found).toBe(true)
@@ -68,9 +80,9 @@ describe('B+Tree structural invariants', () => {
       }
       for (const key of shuffled(seed + 10, 64)) {
         const result = deleteBPlus(tree, key)
-        sawBorrow ||= result.events.some(e => e.type === 'borrow')
+        sawBorrow ||= result.events.some((e) => e.type === 'borrow')
         tree = result.tree
-        keys = keys.filter(k => k !== key)
+        keys = keys.filter((k) => k !== key)
         assertTree(tree, keys)
       }
       expect(tree.root.leaf).toBe(true)
@@ -81,7 +93,7 @@ describe('B+Tree structural invariants', () => {
   it('range-scans across linked leaves after merges', () => {
     let tree = createBPlus(Array.from({ length: 30 }, (_, i) => i * 3))
     for (const key of [6, 12, 15, 24, 30]) tree = deleteBPlus(tree, key).tree
-    expect(rangeBPlus(tree, 10, 45).values).toEqual(allKeys(tree).filter(k => k >= 10 && k <= 45))
+    expect(rangeBPlus(tree, 10, 45).values).toEqual(allKeys(tree).filter((k) => k >= 10 && k <= 45))
     expect(rangeBPlus(tree, 50, 10).values).toEqual([])
   })
   it('lets the guided experiment genuinely trigger split, search and merge', () => {

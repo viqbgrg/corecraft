@@ -5,6 +5,9 @@ export const tutorProvider: TutorProvider = {
   id: 'coming-soon',
   available: false,
   async ask() {
-    return { available: false, message: 'AI Tutor coming soon. 未来的老师将结合课程、操作记录与实验状态，陪你一起推理。' }
+    return {
+      available: false,
+      message: 'AI Tutor coming soon. 未来的老师将结合课程、操作记录与实验状态，陪你一起推理。',
+    }
   },
 }

@@ -3,10 +3,27 @@ export const ORDER = 4
 export const MAX_KEYS = ORDER - 1
 export const MIN_LEAF_KEYS = Math.ceil(MAX_KEYS / 2)
 export const MIN_CHILDREN = Math.ceil(ORDER / 2)
-export interface BPlusNode { id: string; leaf: boolean; keys: number[]; children: BPlusNode[]; next: string | null }
-export interface BPlusTree { root: BPlusNode; nextId: number }
-export interface TreeEvent { type: 'insert' | 'delete' | 'split' | 'merge' | 'borrow' | 'root-grow' | 'root-shrink' | 'duplicate' | 'missing'; detail: string }
-export interface Mutation { tree: BPlusTree; events: TreeEvent[]; changed: boolean }
+export interface BPlusNode {
+  id: string
+  leaf: boolean
+  keys: number[]
+  children: BPlusNode[]
+  next: string | null
+}
+export interface BPlusTree {
+  root: BPlusNode
+  nextId: number
+}
+export interface TreeEvent {
+  type:
+    'insert' | 'delete' | 'split' | 'merge' | 'borrow' | 'root-grow' | 'root-shrink' | 'duplicate' | 'missing'
+  detail: string
+}
+export interface Mutation {
+  tree: BPlusTree
+  events: TreeEvent[]
+  changed: boolean
+}
 function newNode(tree: BPlusTree, leaf: boolean): BPlusNode {
   return { id: 'n' + tree.nextId++, leaf, keys: [], children: [], next: null }
 }
@@ -22,29 +39,45 @@ function refresh(node: BPlusNode) {
 }
 export function allNodes(tree: BPlusTree): BPlusNode[] {
   const nodes: BPlusNode[] = []
-  const walk = (n: BPlusNode) => { nodes.push(n); for (const child of n.children) walk(child) }
+  const walk = (n: BPlusNode) => {
+    nodes.push(n)
+    for (const child of n.children) walk(child)
+  }
   walk(tree.root)
   return nodes
 }
 export function allKeys(tree: BPlusTree): number[] {
-  return allNodes(tree).filter(n => n.leaf).flatMap(n => n.keys)
+  return allNodes(tree)
+    .filter((n) => n.leaf)
+    .flatMap((n) => n.keys)
 }
 function childIndex(node: BPlusNode, key: number): number {
   // A separator is the minimum key of its RIGHT subtree: equality goes right.
-  const index = node.keys.findIndex(separator => key < separator)
+  const index = node.keys.findIndex((separator) => key < separator)
   return index === -1 ? node.keys.length : index
 }
-export function searchBPlus(tree: BPlusTree, key: number): { found: boolean; leaf: BPlusNode; path: string[] } {
+export function searchBPlus(
+  tree: BPlusTree,
+  key: number,
+): { found: boolean; leaf: BPlusNode; path: string[] } {
   let node = tree.root
   const path = [node.id]
-  while (!node.leaf) { node = node.children[childIndex(node, key)]!; path.push(node.id) }
+  while (!node.leaf) {
+    node = node.children[childIndex(node, key)]!
+    path.push(node.id)
+  }
   return { found: node.keys.includes(key), leaf: node, path }
 }
 export function insertBPlus(original: BPlusTree, key: number): Mutation {
   const tree = structuredClone(original)
   const events: TreeEvent[] = []
   if (!Number.isSafeInteger(key)) throw new Error('Keys must be safe integers')
-  if (searchBPlus(tree, key).found) return { tree, events: [{ type: 'duplicate', detail: '键 ' + key + ' 已存在。本模型使用唯一键，不重复插入。' }], changed: false }
+  if (searchBPlus(tree, key).found)
+    return {
+      tree,
+      events: [{ type: 'duplicate', detail: '键 ' + key + ' 已存在。本模型使用唯一键，不重复插入。' }],
+      changed: false,
+    }
   function insert(node: BPlusNode): BPlusNode | null {
     if (node.leaf) {
       node.keys.push(key)
@@ -55,7 +88,17 @@ export function insertBPlus(original: BPlusTree, key: number): Mutation {
       right.keys = node.keys.splice(Math.ceil(node.keys.length / 2))
       right.next = node.next
       node.next = right.id
-      events.push({ type: 'split', detail: '叶子超过 3 个键，分裂为 [' + node.keys.join(', ') + '] 与 [' + right.keys.join(', ') + ']；右叶最小键 ' + right.keys[0] + ' 成为父节点的导航边界。' })
+      events.push({
+        type: 'split',
+        detail:
+          '叶子超过 3 个键，分裂为 [' +
+          node.keys.join(', ') +
+          '] 与 [' +
+          right.keys.join(', ') +
+          ']；右叶最小键 ' +
+          right.keys[0] +
+          ' 成为父节点的导航边界。',
+      })
       return right
     }
     const index = childIndex(node, key)
@@ -89,7 +132,12 @@ function canLend(node: BPlusNode): boolean {
 export function deleteBPlus(original: BPlusTree, key: number): Mutation {
   const tree = structuredClone(original)
   const events: TreeEvent[] = []
-  if (!searchBPlus(tree, key).found) return { tree, events: [{ type: 'missing', detail: '键 ' + key + ' 不存在，树结构不变。' }], changed: false }
+  if (!searchBPlus(tree, key).found)
+    return {
+      tree,
+      events: [{ type: 'missing', detail: '键 ' + key + ' 不存在，树结构不变。' }],
+      changed: false,
+    }
   function rebalance(parent: BPlusNode, index: number) {
     const node = parent.children[index]!
     if (!underfull(node)) return
@@ -100,32 +148,57 @@ export function deleteBPlus(original: BPlusTree, key: number): Mutation {
       else node.children.unshift(left.children.pop()!)
       refresh(left)
       refresh(node)
-      events.push({ type: 'borrow', detail: '从左兄弟借一个' + (node.leaf ? '记录' : '子树') + '，补足最小占用，并更新父节点分隔键。' })
+      events.push({
+        type: 'borrow',
+        detail: '从左兄弟借一个' + (node.leaf ? '记录' : '子树') + '，补足最小占用，并更新父节点分隔键。',
+      })
     } else if (right && canLend(right)) {
       if (node.leaf) node.keys.push(right.keys.shift()!)
       else node.children.push(right.children.shift()!)
       refresh(right)
       refresh(node)
-      events.push({ type: 'borrow', detail: '从右兄弟借一个' + (node.leaf ? '记录' : '子树') + '，保持节点有序和各层平衡。' })
+      events.push({
+        type: 'borrow',
+        detail: '从右兄弟借一个' + (node.leaf ? '记录' : '子树') + '，保持节点有序和各层平衡。',
+      })
     } else if (left) {
-      if (node.leaf) { left.keys.push(...node.keys); left.next = node.next }
-      else left.children.push(...node.children)
+      if (node.leaf) {
+        left.keys.push(...node.keys)
+        left.next = node.next
+      } else left.children.push(...node.children)
       parent.children.splice(index, 1)
       refresh(left)
-      events.push({ type: 'merge', detail: '兄弟没有多余容量，将 ' + node.id + ' 合并进左兄弟 ' + left.id + '。' + (node.leaf ? '同时修复叶子链表。' : '父层可能继续向上合并。') })
+      events.push({
+        type: 'merge',
+        detail:
+          '兄弟没有多余容量，将 ' +
+          node.id +
+          ' 合并进左兄弟 ' +
+          left.id +
+          '。' +
+          (node.leaf ? '同时修复叶子链表。' : '父层可能继续向上合并。'),
+      })
     } else if (right) {
-      if (node.leaf) { node.keys.push(...right.keys); node.next = right.next }
-      else node.children.push(...right.children)
+      if (node.leaf) {
+        node.keys.push(...right.keys)
+        node.next = right.next
+      } else node.children.push(...right.children)
       parent.children.splice(index + 1, 1)
       refresh(node)
-      events.push({ type: 'merge', detail: '右兄弟 ' + right.id + ' 并入 ' + node.id + '，父节点移除对应导航边界。' })
+      events.push({
+        type: 'merge',
+        detail: '右兄弟 ' + right.id + ' 并入 ' + node.id + '，父节点移除对应导航边界。',
+      })
     }
     refresh(parent)
   }
   function remove(node: BPlusNode) {
     if (node.leaf) {
       node.keys.splice(node.keys.indexOf(key), 1)
-      events.push({ type: 'delete', detail: '从叶子 ' + node.id + ' 移除记录 ' + key + '。内部导航键不是另一份数据记录。' })
+      events.push({
+        type: 'delete',
+        detail: '从叶子 ' + node.id + ' 移除记录 ' + key + '。内部导航键不是另一份数据记录。',
+      })
       return
     }
     const index = childIndex(node, key)
@@ -150,7 +223,7 @@ export function rangeBPlus(tree: BPlusTree, low: number, high: number): { values
   const first = searchBPlus(tree, low)
   const path = [...first.path]
   const values: number[] = []
-  const byId = new Map(allNodes(tree).map(n => [n.id, n]))
+  const byId = new Map(allNodes(tree).map((n) => [n.id, n]))
   let leaf: BPlusNode | undefined = first.leaf
   while (leaf) {
     if (!path.includes(leaf.id)) path.push(leaf.id)

@@ -6,15 +6,7 @@
     "groups": [
       {
         "title": "思维工具",
-        "topics": [
-          "什么是计算机",
-          "抽象与建模",
-          "状态",
-          "数据",
-          "指令",
-          "程序",
-          "从问题到机制"
-        ]
+        "topics": ["什么是计算机", "抽象与建模", "状态", "数据", "指令", "程序", "从问题到机制"]
       }
     ],
     "experiments": []
@@ -41,20 +33,10 @@
       },
       {
         "title": "基本逻辑",
-        "topics": [
-          "AND",
-          "OR",
-          "NOT",
-          "XOR",
-          "布尔代数",
-          "逻辑门"
-        ]
+        "topics": ["AND", "OR", "NOT", "XOR", "布尔代数", "逻辑门"]
       }
     ],
-    "experiments": [
-      "二进制与位操作",
-      "二进制加法与溢出"
-    ]
+    "experiments": ["二进制与位操作", "二进制加法与溢出"]
   },
   {
     "level": 2,
@@ -84,13 +66,7 @@
         ]
       }
     ],
-    "experiments": [
-      "CPU 执行指令",
-      "寄存器变化",
-      "Cache 命中 / 未命中",
-      "指令流水线",
-      "分支预测"
-    ]
+    "experiments": ["CPU 执行指令", "寄存器变化", "Cache 命中 / 未命中", "指令流水线", "分支预测"]
   },
   {
     "level": 3,
@@ -99,63 +75,26 @@
     "groups": [
       {
         "title": "进程",
-        "topics": [
-          "Process",
-          "PCB",
-          "Process State",
-          "Context Switch"
-        ]
+        "topics": ["Process", "PCB", "Process State", "Context Switch"]
       },
       {
         "title": "线程",
-        "topics": [
-          "Thread",
-          "User Thread",
-          "Kernel Thread",
-          "Thread Scheduling",
-          "Context Switch"
-        ]
+        "topics": ["Thread", "User Thread", "Kernel Thread", "Thread Scheduling", "Context Switch"]
       },
       {
         "title": "内存",
-        "topics": [
-          "Virtual Memory",
-          "Page",
-          "Page Table",
-          "TLB",
-          "Page Fault",
-          "mmap"
-        ]
+        "topics": ["Virtual Memory", "Page", "Page Table", "TLB", "Page Fault", "mmap"]
       },
       {
         "title": "文件系统",
-        "topics": [
-          "File",
-          "inode",
-          "Directory",
-          "Block",
-          "Page Cache"
-        ]
+        "topics": ["File", "inode", "Directory", "Block", "Page Cache"]
       },
       {
         "title": "IO",
-        "topics": [
-          "Blocking IO",
-          "Non-blocking IO",
-          "IO Multiplexing",
-          "select",
-          "poll",
-          "epoll"
-        ]
+        "topics": ["Blocking IO", "Non-blocking IO", "IO Multiplexing", "select", "poll", "epoll"]
       }
     ],
-    "experiments": [
-      "进程状态转换",
-      "CPU 调度",
-      "虚拟地址转换",
-      "Page Fault",
-      "epoll Reactor 模型"
-    ]
+    "experiments": ["进程状态转换", "CPU 调度", "虚拟地址转换", "Page Fault", "epoll Reactor 模型"]
   },
   {
     "level": 4,
@@ -229,22 +168,10 @@
       },
       {
         "title": "算法",
-        "topics": [
-          "Binary Search",
-          "Sorting",
-          "BFS",
-          "DFS",
-          "Dijkstra",
-          "Dynamic Programming",
-          "Greedy"
-        ]
+        "topics": ["Binary Search", "Sorting", "BFS", "DFS", "Dijkstra", "Dynamic Programming", "Greedy"]
       }
     ],
-    "experiments": [
-      "B+Tree 插入 / 查找 / 删除",
-      "节点分裂 / 合并",
-      "范围查询与叶子链表"
-    ]
+    "experiments": ["B+Tree 插入 / 查找 / 删除", "节点分裂 / 合并", "范围查询与叶子链表"]
   },
   {
     "level": 6,
@@ -295,26 +222,11 @@
       },
       {
         "title": "并发与事务",
-        "topics": [
-          "MVCC",
-          "Read View",
-          "Transaction Isolation",
-          "Lock",
-          "Gap Lock",
-          "Next-Key Lock"
-        ]
+        "topics": ["MVCC", "Read View", "Transaction Isolation", "Lock", "Gap Lock", "Next-Key Lock"]
       },
       {
         "title": "查询执行",
-        "topics": [
-          "EXPLAIN",
-          "Optimizer",
-          "Cost Model",
-          "Join",
-          "GROUP BY",
-          "ORDER BY",
-          "Filesort"
-        ]
+        "topics": ["EXPLAIN", "Optimizer", "Cost Model", "Join", "GROUP BY", "ORDER BY", "Filesort"]
       }
     ],
     "experiments": [
@@ -389,16 +301,7 @@
         ]
       }
     ],
-    "experiments": [
-      "ClassLoader",
-      "对象创建",
-      "对象引用",
-      "GC Roots",
-      "GC",
-      "Heap",
-      "Stack",
-      "JIT"
-    ]
+    "experiments": ["ClassLoader", "对象创建", "对象引用", "GC Roots", "GC", "Heap", "Stack", "JIT"]
   },
   {
     "level": 10,
@@ -444,15 +347,7 @@
     "groups": [
       {
         "title": "IO 模型",
-        "topics": [
-          "File IO",
-          "Stream",
-          "Buffer",
-          "Channel",
-          "Selector",
-          "Reactor",
-          "Netty"
-        ]
+        "topics": ["File IO", "Stream", "Buffer", "Channel", "Selector", "Reactor", "Netty"]
       }
     ],
     "experiments": []
@@ -506,15 +401,7 @@
     "groups": [
       {
         "title": "数据结构",
-        "topics": [
-          "Redis 数据结构",
-          "String",
-          "List",
-          "Hash",
-          "Set",
-          "ZSet",
-          "Skip List"
-        ]
+        "topics": ["Redis 数据结构", "String", "List", "Hash", "Set", "ZSet", "Skip List"]
       },
       {
         "title": "存储与高可用",

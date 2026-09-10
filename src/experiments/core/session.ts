@@ -1,20 +1,44 @@
-import type { ExperimentAction, ExperimentSession, ExperimentView, Observation, Tone } from '../../types/experiment'
+import type {
+  ExperimentAction,
+  ExperimentSession,
+  ExperimentView,
+  Observation,
+  Tone,
+} from '../../types/experiment'
 
 /** Wraps a pure model in a small, framework-independent session. */
-export function createSession<S>(initial: () => S, transition: (state: S, action: ExperimentAction) => S, present: (state: S) => ExperimentView): ExperimentSession {
+export function createSession<S>(
+  initial: () => S,
+  transition: (state: S, action: ExperimentAction) => S,
+  present: (state: S) => ExperimentView,
+): ExperimentSession {
   let state = initial()
   return {
     view: () => present(state),
-    dispatch: (action) => { state = transition(state, action) },
-    reset: () => { state = initial() },
+    dispatch: (action) => {
+      state = transition(state, action)
+    },
+    reset: () => {
+      state = initial()
+    },
   }
 }
 
-export function addLog(log: Observation[], label: string, detail: string, tone: Tone = 'neutral'): Observation[] {
+export function addLog(
+  log: Observation[],
+  label: string,
+  detail: string,
+  tone: Tone = 'neutral',
+): Observation[] {
   return [...log, { step: (log.at(-1)?.step ?? 0) + 1, label, detail, tone }].slice(-60)
 }
 
-export function integer(value: string | number | undefined, min: number, max: number, fallback: number): number {
+export function integer(
+  value: string | number | undefined,
+  min: number,
+  max: number,
+  fallback: number,
+): number {
   if (value === undefined || String(value).trim() === '') return fallback
   const n = Number(value)
   return Number.isSafeInteger(n) ? Math.min(max, Math.max(min, n)) : fallback

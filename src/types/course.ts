@@ -33,4 +33,9 @@ export interface Course {
   content: string
   challenge: Challenge
 }
-export interface ConceptReference { id: string; title: string; level: number; courseId?: string }
+export interface ConceptReference {
+  id: string
+  title: string
+  level: number
+  courseId?: string
+}

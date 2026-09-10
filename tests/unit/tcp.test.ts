@@ -13,21 +13,24 @@ describe('three-way TCP handshake', () => {
     s = transitionHandshake(s, { type: 'ack' })
     expect([s.client, s.server]).toEqual(['ESTABLISHED', 'ESTABLISHED'])
   })
-  it.each(['syn', 'syn-ack', 'ack'])('recovers from a lost %s without consuming a new sequence number', lost => {
-    let s = initialHandshake()
-    for (const type of ['syn', 'syn-ack', 'ack']) {
-      if (type === lost) {
-        s = transitionHandshake(s, { type: 'transport', value: 'drop' })
+  it.each(['syn', 'syn-ack', 'ack'])(
+    'recovers from a lost %s without consuming a new sequence number',
+    (lost) => {
+      let s = initialHandshake()
+      for (const type of ['syn', 'syn-ack', 'ack']) {
+        if (type === lost) {
+          s = transitionHandshake(s, { type: 'transport', value: 'drop' })
+          s = transitionHandshake(s, { type })
+          expect(s.server).not.toBe('ESTABLISHED')
+        }
         s = transitionHandshake(s, { type })
-        expect(s.server).not.toBe('ESTABLISHED')
       }
-      s = transitionHandshake(s, { type })
-    }
-    expect(s.server).toBe('ESTABLISHED')
-    expect(s.clientIsn).toBe(1000)
-    expect(s.serverIsn).toBe(8000)
-    expect(s.dropped).toBe(1)
-  })
+      expect(s.server).toBe('ESTABLISHED')
+      expect(s.clientIsn).toBe(1000)
+      expect(s.serverIsn).toBe(8000)
+      expect(s.dropped).toBe(1)
+    },
+  )
   it('rejects the wrong ACK and exposes the rejection response', () => {
     let s = transitionHandshake(transitionHandshake(initialHandshake(), { type: 'syn' }), { type: 'syn-ack' })
     s = transitionHandshake(s, { type: 'ack-number', value: 8000 })

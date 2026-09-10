@@ -34,10 +34,21 @@ const planned: ConceptReference[] = [
   { id: 'aqs', title: 'AQS', level: 10 },
   { id: 'reentrant-lock', title: 'ReentrantLock', level: 10 },
 ]
-const references = new Map(planned.map(c => [c.id, c]))
+const references = new Map(planned.map((c) => [c.id, c]))
 for (const course of courses) {
-  references.set(course.id, { id: course.id, title: course.title, level: course.level, courseId: course.slug })
-  for (const concept of course.concepts) references.set(concept.id, { id: concept.id, title: concept.title, level: course.level, courseId: course.slug })
+  references.set(course.id, {
+    id: course.id,
+    title: course.title,
+    level: course.level,
+    courseId: course.slug,
+  })
+  for (const concept of course.concepts)
+    references.set(concept.id, {
+      id: concept.id,
+      title: concept.title,
+      level: course.level,
+      courseId: course.slug,
+    })
 }
 export function conceptReference(id: string): ConceptReference {
   return references.get(id) ?? { id, title: id, level: 0 }

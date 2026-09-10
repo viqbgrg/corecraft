@@ -12,7 +12,8 @@ const paths: Record<string, string> = {
   check: 'm5 12 4 4L19 6',
   clock: 'M12 8v5l3 2M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z',
   sparkles: 'm12 3 2.5 6.5L21 12l-6.5 2.5L12 21l-2.5-6.5L3 12l6.5-2.5L12 3ZM20 2v4m-2-2h4',
-  github: 'M9 19c-4 1-4-2-6-2m12 4v-4c0-1 .2-2-1-3 4 0 6-2 6-5 0-1-.5-2-1-3 0-1 0-2-.5-3-1 0-3 1-3 1a11 11 0 0 0-7 0S6.5 3 5.5 3C5 4 5 5 5 6a5 5 0 0 0-1 3c0 3 2 5 6 5-1 1-1 2-1 3v4',
+  github:
+    'M9 19c-4 1-4-2-6-2m12 4v-4c0-1 .2-2-1-3 4 0 6-2 6-5 0-1-.5-2-1-3 0-1 0-2-.5-3-1 0-3 1-3 1a11 11 0 0 0-7 0S6.5 3 5.5 3C5 4 5 5 5 6a5 5 0 0 0-1 3c0 3 2 5 6 5-1 1-1 2-1 3v4',
   menu: 'M4 6h16M4 12h16M4 18h16',
   close: 'm6 6 12 12M6 18 18 6',
   lightbulb: 'M9 18h6m-5 3h4M8 14c-4-4-1-11 4-11s8 7 4 11c-1 1-1 2-1 2H9s0-1-1-2Z',
@@ -27,4 +28,18 @@ const paths: Record<string, string> = {
 }
 </script>
 
-<template><svg :width="size" :height="size" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path :d="paths[name] ?? paths.info" /></svg></template>
+<template>
+  <svg
+    :width="size"
+    :height="size"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="1.65"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    aria-hidden="true"
+  >
+    <path :d="paths[name] ?? paths.info" />
+  </svg>
+</template>

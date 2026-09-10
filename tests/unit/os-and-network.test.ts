@@ -40,10 +40,10 @@ describe('round-robin process and thread scheduler', () => {
     for (let i = 0; i < 3; i++) s = transitionProcess(s, { type: 'block' })
     expect(s.running).toBeNull()
     expect(s.ready).toEqual([])
-    expect(s.threads.every(t => t.state === 'Blocked')).toBe(true)
+    expect(s.threads.every((t) => t.state === 'Blocked')).toBe(true)
     s = transitionProcess(s, { type: 'io-complete' })
     s = transitionProcess(s, { type: 'schedule' })
-    expect(s.threads.filter(t => t.state === 'Running')).toHaveLength(1)
+    expect(s.threads.filter((t) => t.state === 'Running')).toHaveLength(1)
   })
 })
 
@@ -71,7 +71,7 @@ describe('virtual address translation', () => {
     expect(s.pages[1]).toBeNull()
     expect(s.pages[4]).toBe(0)
     expect(s.physical).toBe(16)
-    expect(s.tlb.some(t => t.vpn === 1)).toBe(false)
+    expect(s.tlb.some((t) => t.vpn === 1)).toBe(false)
     expect(s.evictions).toBe(1)
   })
   it('rejects addresses outside the mapped virtual space', () => {
@@ -89,7 +89,9 @@ describe('recursive DNS resolution', () => {
     expect(s.phase).toBe('done')
     expect(s.result).toBe('203.0.113.42')
     expect(s.upstream).toBe(3)
-    expect(s.messages.filter(m => ['root', 'tld', 'auth'].includes(m.to)).every(m => m.from === 'resolver')).toBe(true)
+    expect(
+      s.messages.filter((m) => ['root', 'tld', 'auth'].includes(m.to)).every((m) => m.from === 'resolver'),
+    ).toBe(true)
     s = transitionDns(transitionDns(s, { type: 'next' }), { type: 'next' })
     expect(s.phase).toBe('done')
     expect(s.upstream).toBe(0)
@@ -139,7 +141,11 @@ describe('HTTP lifecycle', () => {
     expect(s.reused).toBe(false)
     expect(s.time).toBe(206)
   })
-  it.each([['dns', 'DNS_FAILURE', 1], ['tcp', 'TCP_TIMEOUT', 2], ['tls', 'TLS_CERT_ERROR', 3]] as const)('stops at %s without sending later protocol messages', (fault, error, stage) => {
+  it.each([
+    ['dns', 'DNS_FAILURE', 1],
+    ['tcp', 'TCP_TIMEOUT', 2],
+    ['tls', 'TLS_CERT_ERROR', 3],
+  ] as const)('stops at %s without sending later protocol messages', (fault, error, stage) => {
     const s = request(transitionHttp(initialHttp(), { type: 'fault', value: fault }))
     expect(s.phase).toBe('failed')
     expect(s.failure).toBe(error)

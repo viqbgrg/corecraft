@@ -1,4 +1,9 @@
-import type { EngineFactory, ExperimentDefinition, ExperimentSession, ExperimentType } from '../types/experiment'
+import type {
+  EngineFactory,
+  ExperimentDefinition,
+  ExperimentSession,
+  ExperimentType,
+} from '../types/experiment'
 import { binaryEngine } from './models/binary'
 import { cpuEngine } from './models/cpu'
 import { cacheEngine } from './models/cache'
@@ -11,9 +16,16 @@ import { httpEngine } from './models/http'
 import { btreeEngine } from './models/btree'
 
 const engines: Record<ExperimentType, EngineFactory> = {
-  binary: binaryEngine, cpu: cpuEngine, cache: cacheEngine, process: processEngine,
-  'virtual-memory': vmEngine, 'tcp-handshake': handshakeEngine, 'tcp-close': closeEngine,
-  dns: dnsEngine, http: httpEngine, btree: btreeEngine,
+  binary: binaryEngine,
+  cpu: cpuEngine,
+  cache: cacheEngine,
+  process: processEngine,
+  'virtual-memory': vmEngine,
+  'tcp-handshake': handshakeEngine,
+  'tcp-close': closeEngine,
+  dns: dnsEngine,
+  http: httpEngine,
+  btree: btreeEngine,
 }
 export function createExperiment(definition: ExperimentDefinition): ExperimentSession {
   const factory = engines[definition.type]

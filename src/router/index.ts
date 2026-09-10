@@ -11,11 +11,14 @@ export const router = createRouter({
   ],
   scrollBehavior(to, from, saved) {
     if (saved) return saved
-    if (to.path === '/roadmap' && typeof to.query.level === 'string' && /^\d+$/.test(to.query.level)) return { el: '#level-' + to.query.level, top: 100 }
+    if (to.path === '/roadmap' && typeof to.query.level === 'string' && /^\d+$/.test(to.query.level))
+      return { el: '#level-' + to.query.level, top: 100 }
     return to.path === from.path ? false : { top: 0 }
   },
 })
-router.afterEach(to => {
+router.afterEach((to) => {
   const course = getCourse(String(to.params.slug ?? ''))
-  document.title = (course ? course.title : to.path === '/roadmap' ? '完整学习路线' : 'Learn by Experimenting') + ' · CoreCraft'
+  document.title =
+    (course ? course.title : to.path === '/roadmap' ? '完整学习路线' : 'Learn by Experimenting') +
+    ' · CoreCraft'
 })

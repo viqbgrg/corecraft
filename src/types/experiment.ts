@@ -1,4 +1,14 @@
-export type ExperimentType = 'binary' | 'cpu' | 'cache' | 'process' | 'virtual-memory' | 'tcp-handshake' | 'tcp-close' | 'dns' | 'http' | 'btree'
+export type ExperimentType =
+  | 'binary'
+  | 'cpu'
+  | 'cache'
+  | 'process'
+  | 'virtual-memory'
+  | 'tcp-handshake'
+  | 'tcp-close'
+  | 'dns'
+  | 'http'
+  | 'btree'
 export type Tone = 'neutral' | 'success' | 'warning' | 'danger'
 export type ExperimentConfig = Readonly<Record<string, string | number | boolean | readonly number[]>>
 export interface ExperimentDefinition {
@@ -9,9 +19,22 @@ export interface ExperimentDefinition {
   type: ExperimentType
   config: ExperimentConfig
 }
-export interface ExperimentAction { type: string; value?: string | number }
-export interface Metric { label: string; value: string | number; unit?: string; tone?: Tone }
-export interface Observation { step: number; label: string; detail: string; tone: Tone }
+export interface ExperimentAction {
+  type: string
+  value?: string | number
+}
+export interface Metric {
+  label: string
+  value: string | number
+  unit?: string
+  tone?: Tone
+}
+export interface Observation {
+  step: number
+  label: string
+  detail: string
+  tone: Tone
+}
 export interface Control {
   id: string
   kind: 'button' | 'number' | 'text' | 'select'
@@ -50,7 +73,11 @@ export interface CacheScene {
   address: number | null
   lineSize: number
   path: 'L1' | 'L2' | 'RAM' | null
-  levels: { name: string; latency: number; lines: { index: number; block: number | null; active: boolean }[] }[]
+  levels: {
+    name: string
+    latency: number
+    lines: { index: number; block: number | null; active: boolean }[]
+  }[]
   recent: { address: number; source: 'L1' | 'L2' | 'RAM'; cycles: number }[]
 }
 export type ThreadState = 'Ready' | 'Running' | 'Blocked' | 'Waiting'
@@ -74,8 +101,21 @@ export interface VirtualMemoryScene {
   pages: { vpn: number; frame: number | null; active: boolean }[]
   stage: string
 }
-export interface NetworkNode { id: string; label: string; subtitle: string; state: string; active?: boolean }
-export interface NetworkMessage { from: string; to: string; label: string; detail: string; tone: Tone; lost?: boolean }
+export interface NetworkNode {
+  id: string
+  label: string
+  subtitle: string
+  state: string
+  active?: boolean
+}
+export interface NetworkMessage {
+  from: string
+  to: string
+  label: string
+  detail: string
+  tone: Tone
+  lost?: boolean
+}
 export interface NetworkScene {
   kind: 'network'
   layout: 'sequence' | 'pipeline'
@@ -93,7 +133,8 @@ export interface TreeScene {
   path: string[]
   found: number | null
 }
-export type ExperimentScene = BinaryScene | CpuScene | CacheScene | ProcessScene | VirtualMemoryScene | NetworkScene | TreeScene
+export type ExperimentScene =
+  BinaryScene | CpuScene | CacheScene | ProcessScene | VirtualMemoryScene | NetworkScene | TreeScene
 export interface ExperimentView {
   scene: ExperimentScene
   metrics: Metric[]
