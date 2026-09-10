@@ -1,0 +1,622 @@
+[
+  {
+    "level": 0,
+    "title": "学习方法",
+    "summary": "先建立模型，再用实验检验自己的解释。",
+    "groups": [
+      {
+        "title": "思维工具",
+        "topics": [
+          "什么是计算机",
+          "抽象与建模",
+          "状态",
+          "数据",
+          "指令",
+          "程序",
+          "从问题到机制"
+        ]
+      }
+    ],
+    "experiments": []
+  },
+  {
+    "level": 1,
+    "title": "计算机基础",
+    "summary": "从可靠的两种状态，走向数据的表示与逻辑。",
+    "groups": [
+      {
+        "title": "数制与数据",
+        "topics": [
+          "二进制",
+          "十六进制",
+          "位与字节",
+          "有符号数",
+          "补码",
+          "浮点数",
+          "字符编码",
+          "ASCII",
+          "Unicode",
+          "UTF-8"
+        ]
+      },
+      {
+        "title": "基本逻辑",
+        "topics": [
+          "AND",
+          "OR",
+          "NOT",
+          "XOR",
+          "布尔代数",
+          "逻辑门"
+        ]
+      }
+    ],
+    "experiments": [
+      "二进制与位操作",
+      "二进制加法与溢出"
+    ]
+  },
+  {
+    "level": 2,
+    "title": "计算机组成原理",
+    "summary": "观察指令怎样执行，数据怎样在存储层级中流动。",
+    "groups": [
+      {
+        "title": "组成与执行",
+        "topics": [
+          "CPU",
+          "ALU",
+          "Register",
+          "Program Counter",
+          "Instruction",
+          "Instruction Fetch",
+          "Decode",
+          "Execute",
+          "Memory",
+          "Bus",
+          "Cache",
+          "Cache Line",
+          "Locality",
+          "Branch Prediction",
+          "Pipeline",
+          "Interrupt",
+          "DMA"
+        ]
+      }
+    ],
+    "experiments": [
+      "CPU 执行指令",
+      "寄存器变化",
+      "Cache 命中 / 未命中",
+      "指令流水线",
+      "分支预测"
+    ]
+  },
+  {
+    "level": 3,
+    "title": "操作系统",
+    "summary": "理解有限的 CPU 与内存怎样被多个程序共同使用。",
+    "groups": [
+      {
+        "title": "进程",
+        "topics": [
+          "Process",
+          "PCB",
+          "Process State",
+          "Context Switch"
+        ]
+      },
+      {
+        "title": "线程",
+        "topics": [
+          "Thread",
+          "User Thread",
+          "Kernel Thread",
+          "Thread Scheduling",
+          "Context Switch"
+        ]
+      },
+      {
+        "title": "内存",
+        "topics": [
+          "Virtual Memory",
+          "Page",
+          "Page Table",
+          "TLB",
+          "Page Fault",
+          "mmap"
+        ]
+      },
+      {
+        "title": "文件系统",
+        "topics": [
+          "File",
+          "inode",
+          "Directory",
+          "Block",
+          "Page Cache"
+        ]
+      },
+      {
+        "title": "IO",
+        "topics": [
+          "Blocking IO",
+          "Non-blocking IO",
+          "IO Multiplexing",
+          "select",
+          "poll",
+          "epoll"
+        ]
+      }
+    ],
+    "experiments": [
+      "进程状态转换",
+      "CPU 调度",
+      "虚拟地址转换",
+      "Page Fault",
+      "epoll Reactor 模型"
+    ]
+  },
+  {
+    "level": 4,
+    "title": "计算机网络",
+    "summary": "从不可靠的传输，理解可靠连接与分层协议。",
+    "groups": [
+      {
+        "title": "网络基础",
+        "topics": [
+          "OSI",
+          "TCP/IP",
+          "Ethernet",
+          "ARP",
+          "IP",
+          "TCP",
+          "UDP",
+          "DNS",
+          "HTTP",
+          "HTTPS",
+          "TLS",
+          "Socket"
+        ]
+      },
+      {
+        "title": "TCP",
+        "topics": [
+          "三次握手",
+          "四次挥手",
+          "Sequence Number",
+          "ACK",
+          "Sliding Window",
+          "Flow Control",
+          "Congestion Control",
+          "Retransmission",
+          "TIME_WAIT"
+        ]
+      }
+    ],
+    "experiments": [
+      "TCP 三次握手",
+      "TCP 四次挥手",
+      "Sequence / ACK",
+      "丢包与重传",
+      "滑动窗口",
+      "DNS 查询",
+      "HTTP 请求生命周期"
+    ]
+  },
+  {
+    "level": 5,
+    "title": "数据结构与算法",
+    "summary": "通过可视化理解数据结构为什么这样设计，而不只是刷题。",
+    "groups": [
+      {
+        "title": "数据结构",
+        "topics": [
+          "Array",
+          "Linked List",
+          "Stack",
+          "Queue",
+          "Deque",
+          "Hash Table",
+          "Tree",
+          "Binary Tree",
+          "BST",
+          "Heap",
+          "B Tree",
+          "B+ Tree",
+          "Graph"
+        ]
+      },
+      {
+        "title": "算法",
+        "topics": [
+          "Binary Search",
+          "Sorting",
+          "BFS",
+          "DFS",
+          "Dijkstra",
+          "Dynamic Programming",
+          "Greedy"
+        ]
+      }
+    ],
+    "experiments": [
+      "B+Tree 插入 / 查找 / 删除",
+      "节点分裂 / 合并",
+      "范围查询与叶子链表"
+    ]
+  },
+  {
+    "level": 6,
+    "title": "数据库原理",
+    "summary": "理解数据如何被组织、持久化与并发访问。",
+    "groups": [
+      {
+        "title": "数据库机制",
+        "topics": [
+          "Database",
+          "Table",
+          "Record",
+          "Page",
+          "Index",
+          "B+Tree",
+          "Buffer Pool",
+          "WAL",
+          "Redo Log",
+          "Undo Log",
+          "Transaction",
+          "ACID",
+          "Isolation",
+          "Lock",
+          "MVCC",
+          "Query Optimizer"
+        ]
+      }
+    ],
+    "experiments": []
+  },
+  {
+    "level": 7,
+    "title": "MySQL",
+    "summary": "从 InnoDB 的机制，解释 SQL 的执行与代价。",
+    "groups": [
+      {
+        "title": "InnoDB 与索引",
+        "topics": [
+          "InnoDB",
+          "Clustered Index",
+          "Secondary Index",
+          "B+Tree",
+          "Buffer Pool",
+          "Redo Log",
+          "Undo Log",
+          "Binlog"
+        ]
+      },
+      {
+        "title": "并发与事务",
+        "topics": [
+          "MVCC",
+          "Read View",
+          "Transaction Isolation",
+          "Lock",
+          "Gap Lock",
+          "Next-Key Lock"
+        ]
+      },
+      {
+        "title": "查询执行",
+        "topics": [
+          "EXPLAIN",
+          "Optimizer",
+          "Cost Model",
+          "Join",
+          "GROUP BY",
+          "ORDER BY",
+          "Filesort"
+        ]
+      }
+    ],
+    "experiments": [
+      "B+Tree 查找",
+      "Buffer Pool",
+      "Redo Log",
+      "Undo Log",
+      "MVCC",
+      "Read View",
+      "EXPLAIN",
+      "Join 执行",
+      "Optimizer Cost"
+    ]
+  },
+  {
+    "level": 8,
+    "title": "Java 核心",
+    "summary": "用底层模型理解 Java 对象、类型与运行。",
+    "groups": [
+      {
+        "title": "核心知识",
+        "topics": [
+          "Java Memory Model",
+          "Object",
+          "Reference",
+          "Heap",
+          "Stack",
+          "Method Area",
+          "Class",
+          "ClassLoader",
+          "Reflection",
+          "Exception",
+          "Generic",
+          "Collection",
+          "IO",
+          "NIO"
+        ]
+      }
+    ],
+    "experiments": []
+  },
+  {
+    "level": 9,
+    "title": "JVM",
+    "summary": "让类加载、内存分配、垃圾回收和运行优化变得可观察。",
+    "groups": [
+      {
+        "title": "运行时与内存",
+        "topics": [
+          "JVM Architecture",
+          "Class Loading",
+          "Runtime Data Area",
+          "Heap",
+          "Stack",
+          "Metaspace",
+          "Object Layout"
+        ]
+      },
+      {
+        "title": "回收与优化",
+        "topics": [
+          "GC Roots",
+          "Reachability",
+          "Minor GC",
+          "Major GC",
+          "Full GC",
+          "G1",
+          "ZGC",
+          "JIT",
+          "Escape Analysis",
+          "Safepoint"
+        ]
+      }
+    ],
+    "experiments": [
+      "ClassLoader",
+      "对象创建",
+      "对象引用",
+      "GC Roots",
+      "GC",
+      "Heap",
+      "Stack",
+      "JIT"
+    ]
+  },
+  {
+    "level": 10,
+    "title": "Java 并发",
+    "summary": "从可见性、原子性与调度，构建正确的并发程序。",
+    "groups": [
+      {
+        "title": "并发机制",
+        "topics": [
+          "Thread",
+          "synchronized",
+          "volatile",
+          "CAS",
+          "Atomic",
+          "AQS",
+          "ReentrantLock",
+          "Condition",
+          "CountDownLatch",
+          "Semaphore",
+          "ThreadPool",
+          "BlockingQueue",
+          "ConcurrentHashMap",
+          "ForkJoinPool",
+          "CompletableFuture"
+        ]
+      }
+    ],
+    "experiments": [
+      "volatile",
+      "CAS",
+      "synchronized",
+      "ReentrantLock",
+      "AQS",
+      "ThreadPool",
+      "Producer / Consumer",
+      "CompletableFuture"
+    ]
+  },
+  {
+    "level": 11,
+    "title": "Java IO / NIO",
+    "summary": "跟踪数据与线程，理解阻塞和事件驱动的取舍。",
+    "groups": [
+      {
+        "title": "IO 模型",
+        "topics": [
+          "File IO",
+          "Stream",
+          "Buffer",
+          "Channel",
+          "Selector",
+          "Reactor",
+          "Netty"
+        ]
+      }
+    ],
+    "experiments": []
+  },
+  {
+    "level": 12,
+    "title": "Spring",
+    "summary": "不只是学习 Spring 怎么用，而是解释 Spring 为什么这样设计。",
+    "groups": [
+      {
+        "title": "容器与框架",
+        "topics": [
+          "IoC",
+          "DI",
+          "Bean",
+          "BeanFactory",
+          "ApplicationContext",
+          "AOP",
+          "Proxy",
+          "Transaction",
+          "Spring MVC"
+        ]
+      }
+    ],
+    "experiments": []
+  },
+  {
+    "level": 13,
+    "title": "Spring Boot",
+    "summary": "理解约定、自动配置与可观测应用的边界。",
+    "groups": [
+      {
+        "title": "自动配置与应用",
+        "topics": [
+          "Auto Configuration",
+          "Starter",
+          "Configuration",
+          "Web",
+          "Validation",
+          "Actuator",
+          "Configuration Properties"
+        ]
+      }
+    ],
+    "experiments": []
+  },
+  {
+    "level": 14,
+    "title": "Redis",
+    "summary": "从数据结构与持久化，走向缓存和可用性设计。",
+    "groups": [
+      {
+        "title": "数据结构",
+        "topics": [
+          "Redis 数据结构",
+          "String",
+          "List",
+          "Hash",
+          "Set",
+          "ZSet",
+          "Skip List"
+        ]
+      },
+      {
+        "title": "存储与高可用",
+        "topics": [
+          "Expiration",
+          "Eviction",
+          "Persistence",
+          "RDB",
+          "AOF",
+          "Replication",
+          "Sentinel",
+          "Cluster"
+        ]
+      }
+    ],
+    "experiments": []
+  },
+  {
+    "level": 15,
+    "title": "消息队列",
+    "summary": "理解解耦、顺序、重试和消息投递语义。",
+    "groups": [
+      {
+        "title": "消息模型",
+        "topics": [
+          "Producer",
+          "Consumer",
+          "Broker",
+          "Topic",
+          "Partition",
+          "Offset",
+          "Consumer Group",
+          "At-least-once",
+          "At-most-once",
+          "Exactly-once",
+          "Kafka",
+          "RabbitMQ"
+        ]
+      }
+    ],
+    "experiments": []
+  },
+  {
+    "level": 16,
+    "title": "分布式系统",
+    "summary": "在网络延迟和部分故障下，建立可推理的系统模型。",
+    "groups": [
+      {
+        "title": "一致性与协调",
+        "topics": [
+          "CAP",
+          "BASE",
+          "Consistency",
+          "Availability",
+          "Partition Tolerance",
+          "Distributed Lock",
+          "Distributed Transaction",
+          "Consensus",
+          "Raft"
+        ]
+      },
+      {
+        "title": "韧性与治理",
+        "topics": [
+          "Service Discovery",
+          "Load Balancing",
+          "Retry",
+          "Timeout",
+          "Circuit Breaker",
+          "Rate Limiting"
+        ]
+      }
+    ],
+    "experiments": []
+  },
+  {
+    "level": 17,
+    "title": "高级 Java 后端",
+    "summary": "用完整的计算机模型分析性能、可靠性和真实故障。",
+    "groups": [
+      {
+        "title": "工程实践",
+        "topics": [
+          "高并发",
+          "高性能",
+          "缓存",
+          "数据库优化",
+          "JVM 调优",
+          "GC 调优",
+          "线程池设计",
+          "异步化",
+          "分布式缓存",
+          "分布式锁",
+          "MQ",
+          "分布式事务",
+          "微服务",
+          "可观测性",
+          "性能分析",
+          "故障排查"
+        ]
+      }
+    ],
+    "experiments": []
+  }
+]
