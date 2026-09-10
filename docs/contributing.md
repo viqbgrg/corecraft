@@ -23,8 +23,11 @@
 npm ci
 npm run dev
 npm test
+npm run format:check
 npm run build
 npm run test:e2e
 ```
 
-浏览器测试首次运行前执行 `npx playwright install chromium`。提交信息用英文，例如 `feat: add page replacement experiment`。贡献以 MIT 许可证发布。请勿在代码、提交或 issue 中放入 token、密钥和个人数据。
+浏览器测试首次运行前执行 `npx playwright install chromium --only-shell`。提交信息用英文，例如 `feat: add page replacement experiment`。贡献以 MIT 许可证发布。请勿在代码、提交或 issue 中放入 token、密钥和个人数据。
+
+使用 `npm run format` 统一格式；CI 会检查格式、模型、类型与浏览器行为。依赖锁定到公开 npm registry，项目配置不包含认证信息。

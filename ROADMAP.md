@@ -6,6 +6,8 @@
 
 ## 交付阶段
 
+第一阶段目前已有 10 个可操作实验，课程与模型对应关系见 [README](README.md#当前进度--phase-1)。统一课程模型、Learn / Experiment / Challenge、前后置概念、本地完成记录及 AI Tutor 接口均已建立。AI API 尚未接入，下面其余知识专题仍按长期计划推进。
+
 - **Phase 1 · 互动学习原型**：Binary、CPU、Cache、Process / Thread、Virtual Memory、TCP 三次握手、TCP 四次挥手、DNS、HTTP Lifecycle、B+Tree。统一课程模型、实验引擎、三种学习模式、知识关联、AI Tutor 适配层、静态部署。
 - **Phase 2 · 深化基础**：流水线、分支预测、调度算法、页面置换、TCP 重传与拥塞控制、数据结构与算法。优先增加能回答具体问题的实验。
 - **Phase 3 · 数据与 Java**：数据库原理、MySQL、Java 核心、JVM、并发、IO / NIO。
