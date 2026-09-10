@@ -1,3 +1,6 @@
-<template>
-  <main class="bootstrap"><span>BUILD YOUR UNDERSTANDING</span><h1>CoreCraft.</h1><p>Learn Computer Science by Building &amp; Experimenting.</p><p>通过互动实验理解计算机原理，从计算机基础一路学习到高级 Java 开发。</p></main>
-</template>
+<script setup lang="ts">
+import { useRoute } from 'vue-router'
+import AppLayout from './layouts/AppLayout.vue'
+const route = useRoute()
+</script>
+<template><AppLayout><RouterView :key="route.path" /></AppLayout></template>
