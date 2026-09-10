@@ -13,6 +13,7 @@ const planned: ConceptReference[] = [
   { id: 'page-fault', title: '缺页异常', level: 3 },
   { id: 'page-cache', title: 'Page Cache', level: 3 },
   { id: 'socket', title: 'Socket', level: 4 },
+  { id: 'reactor', title: 'Reactor', level: 11 },
   { id: 'tcp', title: 'TCP 连接', level: 4 },
   { id: 'sequence', title: 'Sequence / ACK', level: 4 },
   { id: 'retransmission', title: '丢包与重传', level: 4 },
