@@ -37,7 +37,7 @@ const description = computed(() =>
             markerHeight="5"
             orient="auto-start-reverse"
           >
-            <path d="M0 0 10 5 0 10Z" fill="#29947d" />
+            <path d="M0 0 10 5 0 10Z" fill="context-stroke" />
           </marker>
         </defs>
         <path

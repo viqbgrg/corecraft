@@ -88,7 +88,7 @@ h3 {
 dt,
 .card-detail {
   font-size: 12px;
-  color: #596e63;
+  color: var(--muted);
 }
 dd {
   margin: 6px 0 0;
@@ -117,7 +117,7 @@ dd.mono {
 }
 .data-sequence span {
   font-size: 10px;
-  color: #596e63;
+  color: var(--muted);
 }
 .data-sequence strong {
   font-size: 12px;
@@ -149,7 +149,7 @@ td {
   overflow-wrap: anywhere;
 }
 thead th {
-  color: #596e63;
+  color: var(--muted);
   font-weight: 500;
 }
 tbody th {
@@ -161,7 +161,7 @@ tbody th {
 }
 .data-empty,
 .data-caption {
-  color: #596e63;
+  color: var(--muted);
   font-size: 12px;
   line-height: 1.8;
 }
@@ -169,8 +169,8 @@ tbody th {
   margin: 16px 0 0;
 }
 .success {
-  background: #edf7f1;
-  color: #226345;
+  background: var(--green-pale);
+  color: var(--success);
 }
 .warning {
   background: #fff7e6;

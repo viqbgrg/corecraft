@@ -123,14 +123,14 @@ function stageAt(cycle: PipelineCycle, instruction: number): string {
   min-width: 0;
   min-height: 117px;
   padding: 12px 10px;
-  border: 1px dashed #cfdac8;
+  border: 1px dashed var(--line-strong);
   border-radius: 8px;
-  background: #f5f8f1;
+  background: var(--surface-soft);
 }
 .stage-card.occupied {
   border-style: solid;
-  border-color: #b9d0bb;
-  background: #edf5ed;
+  border-color: var(--green-border);
+  background: var(--green-pale);
 }
 .stage-card.waiting {
   border-color: #d9c590;
@@ -155,15 +155,15 @@ function stageAt(cycle: PipelineCycle, instruction: number): string {
 .pipeline-caption {
   font-size: 12px;
   line-height: 1.8;
-  color: #52624f;
+  color: var(--text);
   margin: 16px 0;
 }
 .pipeline-timeline,
 .pipeline-comparison {
   overflow-x: auto;
-  border: 1px solid #dbe4d6;
+  border: 1px solid var(--line);
   border-radius: 8px;
-  background: #fff;
+  background: var(--surface);
 }
 .pipeline-timeline:focus-visible,
 .pipeline-comparison:focus-visible {
@@ -178,7 +178,7 @@ table {
 caption {
   padding: 12px;
   text-align: left;
-  color: #52624f;
+  color: var(--text);
   line-height: 1.7;
   font-size: 12px;
 }
@@ -186,12 +186,12 @@ th,
 td {
   padding: 9px 11px;
   text-align: center;
-  border-top: 1px solid #e4eade;
+  border-top: 1px solid var(--line);
   white-space: nowrap;
 }
 thead th {
-  background: #f0f5ec;
-  color: #46583e;
+  background: var(--green-pale);
+  color: var(--text);
   font-weight: 500;
 }
 tbody th {
@@ -199,28 +199,28 @@ tbody th {
   font-weight: 500;
 }
 .pipeline-timeline tbody th {
-  background: #fff;
+  background: var(--surface);
 }
 .instruction-id {
   display: inline-block;
   margin-right: 10px;
-  color: #53654d;
+  color: var(--text);
   font-family: var(--mono);
 }
 td {
   font-family: var(--mono);
 }
 td.active {
-  background: #edf5ed;
-  color: #215e4c;
+  background: var(--green-pale);
+  color: var(--green);
 }
 td.stalled {
   background: #fff1cc;
   color: #765716;
 }
 td.committed {
-  background: #267a60;
-  color: #fff;
+  background: var(--green);
+  color: var(--on-accent);
 }
 .pipeline-storage {
   display: grid;
@@ -237,9 +237,9 @@ td.committed {
   flex-wrap: wrap;
   gap: 12px;
   padding: 12px;
-  border: 1px solid #dbe4d6;
+  border: 1px solid var(--line);
   border-radius: 8px;
-  background: #fff;
+  background: var(--surface);
 }
 .pipeline-memory > span:not(.panel-label) {
   display: flex;

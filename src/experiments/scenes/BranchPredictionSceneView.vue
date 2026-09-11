@@ -153,19 +153,19 @@ function direction(taken: boolean): string {
   gap: 8px;
 }
 .predictor-state {
-  border: 1px solid #d7e1d0;
-  background: #fff;
+  border: 1px solid var(--line);
+  background: var(--surface);
   border-radius: 8px;
   padding: 13px 11px;
 }
 .predictor-state.current {
-  border: 2px solid #267a60;
+  border: 2px solid var(--green);
   padding: 12px 10px;
-  background: #edf5ed;
+  background: var(--green-pale);
 }
 .predictor-state > span {
   font-size: 11px;
-  color: #56654e;
+  color: var(--text);
 }
 .predictor-state strong {
   display: block;
@@ -175,11 +175,11 @@ function direction(taken: boolean): string {
 }
 .predictor-state small {
   font-size: 11px;
-  color: #46583e;
+  color: var(--text);
 }
 .branch-caption,
 .static-prediction {
-  color: #52624f;
+  color: var(--text);
   font-size: 12px;
   line-height: 1.8;
   margin: 16px 0;
@@ -191,12 +191,12 @@ function direction(taken: boolean): string {
   gap: 8px;
   font-size: 12px;
   padding: 12px;
-  background: #fff;
-  border: 1px solid #d7e1d0;
+  background: var(--surface);
+  border: 1px solid var(--line);
   border-radius: 7px;
 }
 .branch-decision strong {
-  color: #215e4c;
+  color: var(--green);
 }
 .outcome-sequence {
   display: flex;
@@ -212,16 +212,16 @@ function direction(taken: boolean): string {
   min-width: 33px;
   padding: 6px;
   font-family: var(--mono);
-  border: 1px solid #d8e1d2;
+  border: 1px solid var(--line);
   border-radius: 5px;
-  background: #fff;
+  background: var(--surface);
 }
 .outcome-sequence small {
   font-size: 10px;
 }
 .outcome-sequence .correct {
-  background: #edf5ed;
-  color: #215e4c;
+  background: var(--green-pale);
+  color: var(--green);
 }
 .outcome-sequence .missed {
   background: #fff1cc;
@@ -234,9 +234,9 @@ function direction(taken: boolean): string {
 .prediction-history,
 .prediction-comparison {
   overflow: auto;
-  border: 1px solid #dbe4d6;
+  border: 1px solid var(--line);
   border-radius: 8px;
-  background: #fff;
+  background: var(--surface);
   margin-top: 16px;
 }
 .prediction-history {
@@ -256,12 +256,12 @@ caption {
   text-align: left;
   padding: 12px;
   line-height: 1.7;
-  color: #52624f;
+  color: var(--text);
   font-size: 12px;
 }
 th,
 td {
-  border-top: 1px solid #e4eade;
+  border-top: 1px solid var(--line);
   padding: 9px 12px;
   text-align: center;
   white-space: nowrap;
@@ -270,8 +270,8 @@ th {
   font-weight: 500;
 }
 thead th {
-  background: #f0f5ec;
-  color: #46583e;
+  background: var(--green-pale);
+  color: var(--text);
 }
 td {
   font-family: var(--mono);

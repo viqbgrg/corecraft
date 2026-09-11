@@ -38,14 +38,14 @@ function geometry(edge: GraphScene['edges'][number]) {
           markerHeight="6"
           orient="auto"
         >
-          <path d="M0 0L10 5L0 10Z" fill="#65786d" />
+          <path d="M0 0L10 5L0 10Z" fill="context-stroke" />
         </marker>
       </defs>
       <g v-for="edge in scene.edges" :key="edge.from + '-' + edge.to">
         <path
           :d="geometry(edge).d"
           fill="none"
-          :stroke="edge.active ? '#257d65' : '#aab8ac'"
+          :stroke="edge.active ? 'var(--green)' : 'var(--line-strong)'"
           :stroke-width="edge.active ? 3 : 1.5"
           :marker-end="scene.directed ? 'url(#' + uid + '-arrow)' : undefined"
         />
@@ -57,8 +57,8 @@ function geometry(edge: GraphScene['edges'][number]) {
           :cx="node.x"
           :cy="node.y"
           r="21"
-          :fill="node.current ? '#fff0ce' : node.visited ? '#e6f3ea' : '#fff'"
-          :stroke="node.current ? '#9d6d1a' : '#257d65'"
+          :fill="node.current ? '#fff0ce' : node.visited ? 'var(--green-pale)' : 'var(--surface)'"
+          :stroke="node.current ? '#9d6d1a' : 'var(--green)'"
           stroke-width="2"
         />
         <text :x="node.x" :y="node.y + 5" class="node-name">{{ node.id }}</text>
@@ -109,7 +109,7 @@ svg {
 .node-distance {
   text-anchor: middle;
   font-family: var(--mono);
-  fill: #294e3c;
+  fill: var(--ink);
 }
 .node-name {
   font-size: 15px;
@@ -118,7 +118,7 @@ svg {
 .edge-weight {
   font-size: 12px;
   paint-order: stroke;
-  stroke: #fcfdfa;
+  stroke: var(--surface-soft);
   stroke-width: 4px;
   stroke-linejoin: round;
 }
@@ -133,7 +133,7 @@ svg {
   overflow-wrap: anywhere;
 }
 .graph-caption {
-  color: #596e63;
+  color: var(--muted);
 }
 table {
   border-collapse: collapse;
