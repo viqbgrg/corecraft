@@ -1,17 +1,18 @@
 import { describe, expect, it } from 'vitest'
-import { courses } from '../../src/courses'
+import { courses, getCourse } from '../../src/courses'
 import { conceptReference } from '../../src/data/concepts'
 import { roadmap } from '../../src/data/roadmap'
+import { topicCoverage } from '../../src/data/coverage'
 import { createExperiment } from '../../src/experiments/registry'
 
 describe('course and engine integration', () => {
-  it('has exactly ten working lessons and eighteen roadmap levels', () => {
-    expect(courses).toHaveLength(10)
+  it('has working lessons and eighteen roadmap levels', () => {
+    expect(courses).toHaveLength(81)
     expect(roadmap.map((l) => l.level)).toEqual(Array.from({ length: 18 }, (_, i) => i))
-    expect(new Set(courses.map((c) => c.id)).size).toBe(10)
+    expect(new Set(courses.map((c) => c.id)).size).toBe(courses.length)
   })
   it('isolates sessions and resets without leaking prior state', () => {
-    const definition = courses[0]!.experiments[0]!
+    const definition = getCourse('binary')!.experiments[0]!
     const first = createExperiment(definition)
     const second = createExperiment(definition)
     const initial = second.view()
@@ -20,14 +21,31 @@ describe('course and engine integration', () => {
     first.reset()
     expect(first.view()).toEqual(initial)
   })
+  it('links only existing roadmap topics to real courses and covers every topic in Levels 0–17', () => {
+    const keys = new Set<string>()
+    for (const entry of topicCoverage) {
+      const level = roadmap.find((l) => l.level === entry.level)!
+      const course = courses.find((c) => c.slug === entry.course)!
+      expect(course.level).toBe(entry.level)
+      for (const topic of entry.topics) {
+        expect(level.groups.flatMap((g) => g.topics)).toContain(topic)
+        const key = `${entry.level}:${topic}`
+        expect(keys.has(key)).toBe(false)
+        keys.add(key)
+      }
+    }
+    for (const level of roadmap.filter((l) => l.level <= 17))
+      for (const topic of level.groups.flatMap((g) => g.topics))
+        expect(keys.has(`${level.level}:${topic}`), `${level.level}:${topic}`).toBe(true)
+  })
   it('applies CPU configuration and rejects unsupported fixed model dimensions', () => {
-    const definition = courses[1]!.experiments[0]!
+    const definition = getCourse('cpu')!.experiments[0]!
     const session = createExperiment({ ...definition, config: { a: 5, b: 7 } })
     for (let i = 0; i < 6; i++) session.dispatch({ type: 'instruction' })
     expect(session.view().metrics.find((m) => m.label === 'R1')?.value).toBe(12)
-    expect(() => createExperiment({ ...courses[0]!.experiments[0]!, config: { width: 16 } })).toThrow(
-      'width: 8',
-    )
+    expect(() =>
+      createExperiment({ ...getCourse('binary')!.experiments[0]!, config: { width: 16 } }),
+    ).toThrow('width: 8')
   })
   it.each(courses)('$slug resolves its engine, Markdown, challenge and knowledge links', (course) => {
     const definition = course.experiments[0]!

@@ -4,7 +4,7 @@ import { getCourse } from '../courses'
 export const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
   routes: [
-    { path: '/', redirect: '/learn/binary' },
+    { path: '/', redirect: '/learn/modeling' },
     { path: '/learn/:slug', component: () => import('../views/LessonView.vue') },
     { path: '/roadmap', component: () => import('../views/RoadmapView.vue') },
     { path: '/:pathMatch(.*)*', component: () => import('../views/NotFoundView.vue') },

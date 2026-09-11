@@ -2,6 +2,7 @@
 import { useRoute } from 'vue-router'
 import { courses } from '../courses'
 import { roadmap } from '../data/roadmap'
+import { courseForTopic } from '../data/coverage'
 import { knowledgePaths } from '../data/concepts'
 import ConceptLink from '../components/ConceptLink.vue'
 import Icon from '../components/Icon.vue'
@@ -29,10 +30,10 @@ const atLevel = (level: number) => courses.filter((c) => c.level === level)
     <div class="roadmap-notice">
       <Icon name="lightbulb" :size="22" />
       <p>
-        <strong>从小而扎实的第一阶段开始。</strong>现在开放
-        {{ courses.length }} 个真实可操作的实验。其余内容是长期路线，会随着实验质量逐步开放。
+        <strong>从计算机基础，一路连到高级后端。</strong>现在开放 {{ courses.length }} 个可操作实验，覆盖
+        Level 0–17 的全部知识主题。点击知识点即可进入对应课程。
       </p>
-      <RouterLink to="/learn/binary" class="button primary"
+      <RouterLink to="/learn/modeling" class="button primary"
         >开始探索<Icon name="arrow" :size="15"
       /></RouterLink>
     </div>
@@ -85,7 +86,15 @@ const atLevel = (level: number) => courses.filter((c) => c.level === level)
             <div v-for="group in level.groups" :key="group.title" class="topic-group">
               <h3>{{ group.title }}</h3>
               <div>
-                <span v-for="topic in group.topics" :key="topic">{{ topic }}</span>
+                <template v-for="topic in group.topics" :key="topic">
+                  <RouterLink
+                    v-if="courseForTopic(level.level, topic)"
+                    :to="'/learn/' + courseForTopic(level.level, topic)"
+                    class="covered-topic"
+                    >{{ topic }}<Icon name="arrow" :size="11"
+                  /></RouterLink>
+                  <span v-else>{{ topic }}</span>
+                </template>
               </div>
             </div>
             <div v-if="level.experiments.length" class="planned-experiments">

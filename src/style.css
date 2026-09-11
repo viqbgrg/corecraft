@@ -793,6 +793,7 @@ progress::-moz-progress-bar {
 }
 .workbench-header-actions {
   gap: 13px !important;
+  flex-shrink: 0;
 }
 .live-badge {
   display: inline-flex;
@@ -800,6 +801,7 @@ progress::-moz-progress-bar {
   gap: 5px;
   font-size: 11px;
   color: #5d6955;
+  white-space: nowrap;
 }
 .live-badge .status-dot {
   width: 5px;
@@ -2908,13 +2910,25 @@ progress::-moz-progress-bar {
   flex-wrap: wrap;
   gap: 6px;
 }
-.topic-group > div > span {
+.topic-group > div > span,
+.topic-group > div > a {
   font-size: 12px;
   color: #5f684e;
   border: 1px solid #e5ebd6;
   border-radius: 4px;
   background: #f8faf1;
   padding: 5px 7px;
+}
+.topic-group > div > a.covered-topic {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: #24684e;
+  background: #edf7ef;
+  border-color: #cddfcf;
+}
+.topic-group > div > a.covered-topic:hover {
+  text-decoration: underline;
 }
 .planned-experiments {
   margin-top: 20px;

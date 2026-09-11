@@ -50,13 +50,13 @@ function focusMain() {
         @click="mobileNav = !mobileNav"
       >
         <Icon :name="mobileNav ? 'close' : 'menu'" /></button
-      ><RouterLink to="/learn/binary" class="brand"
+      ><RouterLink to="/learn/modeling" class="brand"
         ><span class="brand-symbol"><Icon name="cube" :size="25" /></span
         ><span>CoreCraft<span class="brand-dot">.</span></span></RouterLink
       ><span class="brand-divider" /><span class="brand-tagline">Make it make sense.</span>
     </div>
     <nav class="header-links" aria-label="主导航">
-      <RouterLink to="/learn/binary" :class="{ active: route.path.startsWith('/learn/') }"
+      <RouterLink to="/learn/modeling" :class="{ active: route.path.startsWith('/learn/') }"
         >学习空间</RouterLink
       ><RouterLink to="/roadmap" active-class="active">学习路线<Icon name="map" :size="15" /></RouterLink>
     </nav>
@@ -82,7 +82,7 @@ function focusMain() {
         <span class="eyebrow">YOUR LEARNING PATH</span>
         <div>
           <h2>从原理出发</h2>
-          <span class="version-tag">PHASE 01</span>
+          <span class="version-tag">LEVEL 0–17</span>
         </div>
         <p>先动手，再恍然大悟。</p>
       </div>

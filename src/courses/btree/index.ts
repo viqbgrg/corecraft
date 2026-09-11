@@ -20,6 +20,14 @@ export default {
   nextConcepts: ['index', 'clustered-index', 'buffer-pool'],
   concepts: [
     {
+      id: 'b-tree',
+      title: 'B Tree 与 B+Tree',
+      content:
+        '两者都是多路平衡搜索树。经典 B Tree 的内部节点也保存记录，B+Tree 把记录集中到叶子，内部键仅导航。',
+      why: '同一类平衡思想可以按点查找、顺序扫描和页容量的需求采用不同记录布局。',
+      relatedConcepts: ['btree', 'tree', 'bst'],
+    },
+    {
       id: 'btree',
       title: 'B+Tree',
       content: '多路平衡搜索树，内部节点只导航，记录保存在同一深度的叶子中。',

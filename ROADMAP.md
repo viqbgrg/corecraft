@@ -2,23 +2,23 @@
 
 > Learn Computer Science by Building & Experimenting.
 >
-> 这是一条长期路线，不是当前已经完成的课程列表。第一阶段聚焦十个真实可操作的实验。
+> Level 0–17 的全部路线主题已由 81 节可操作课程覆盖。下面记录课程范围、已完成阶段与后续产品计划。
 
 ## 交付阶段
 
-第一阶段目前已有 10 个可操作实验，课程与模型对应关系见 [README](README.md#当前进度--phase-1)。统一课程模型、Learn / Experiment / Challenge、前后置概念、本地完成记录及 AI Tutor 接口均已建立。AI API 尚未接入，下面其余知识专题仍按长期计划推进。
+目前已有 81 个可操作实验，课程入口见 [README](README.md#当前课程)，各组范围与验收依据见 [交付清单](docs/course-delivery.md)。统一课程模型、Learn / Experiment / Challenge、前后置概念、本地完成记录及 AI Tutor 接口均已建立。课程范围已经交付；真实 AI API、实验分享等产品能力继续独立规划。
 
-- **Phase 1 · 互动学习原型**：Binary、CPU、Cache、Process / Thread、Virtual Memory、TCP 三次握手、TCP 四次挥手、DNS、HTTP Lifecycle、B+Tree。统一课程模型、实验引擎、三种学习模式、知识关联、AI Tutor 适配层、静态部署。
-- **Phase 2 · 深化基础**：流水线、分支预测、调度算法、页面置换、TCP 重传与拥塞控制、数据结构与算法。优先增加能回答具体问题的实验。
-- **Phase 3 · 数据与 Java**：数据库原理、MySQL、Java 核心、JVM、并发、IO / NIO。
-- **Phase 4 · 后端体系**：Spring、Spring Boot、Redis、消息队列、分布式系统、高性能与故障排查。
+- **Phase 1 · 互动学习原型（已完成）**：Binary、CPU、Cache、Process / Thread、Virtual Memory、TCP 三次握手、TCP 四次挥手、DNS、HTTP Lifecycle、B+Tree。统一课程模型、实验引擎、三种学习模式、知识关联、AI Tutor 适配层、静态部署。
+- **Phase 2 · 深化基础（已完成）**：流水线、分支预测、CPU 调度、页面置换、TCP 可靠传输与拥塞控制；数组与链表、栈 / 队列 / 双端队列、哈希表、二分查找、排序、BST / 堆、图算法、贪心与动态规划。
+- **Phase 3 · 数据与 Java（已完成）**：数据库原理、MySQL、Java 核心、JVM、并发、IO / NIO。
+- **Phase 4 · 后端体系（已完成）**：Spring、Spring Boot、Redis、消息队列、分布式系统、高性能与故障排查。
 - **跨阶段演进**：基于实验上下文的 AI Tutor、知识图谱、实验保存与分享、无障碍完善、国际化。后端与用户系统仅在明确需求后再设计。
 
 ## 完整学习路线
 
 计算机基础 → 计算机组成原理 → 操作系统 → 计算机网络 → 数据结构与算法 → 数据库原理 → MySQL → Java 核心 → JVM → Java 并发 → Java IO / NIO → Spring / Spring Boot → Redis → 消息队列 → 分布式系统 → 高性能 / 高并发 → 高级 Java 后端开发。
 
-以下清单是知识覆盖目标；未勾选不代表该知识完全未在实验中出现。交付状态以 README 的实验表为准。
+以下清单保留完整知识范围。全部勾选主题均有对应的开放课程；映射保存在 `src/data/coverage.ts`，路线页可直接跳转。课程覆盖以正文、可操作机制与测试为依据，每课同时说明模型假设和省略的现实实现。
 
 ## Level 0：学习方法
 
@@ -26,13 +26,13 @@
 
 ### 思维工具
 
-- [ ] 什么是计算机
-- [ ] 抽象与建模
-- [ ] 状态
-- [ ] 数据
-- [ ] 指令
-- [ ] 程序
-- [ ] 从问题到机制
+- [x] 什么是计算机
+- [x] 抽象与建模
+- [x] 状态
+- [x] 数据
+- [x] 指令
+- [x] 程序
+- [x] 从问题到机制
 
 ## Level 1：计算机基础
 
@@ -40,25 +40,25 @@
 
 ### 数制与数据
 
-- [ ] 二进制
-- [ ] 十六进制
-- [ ] 位与字节
-- [ ] 有符号数
-- [ ] 补码
-- [ ] 浮点数
-- [ ] 字符编码
-- [ ] ASCII
-- [ ] Unicode
-- [ ] UTF-8
+- [x] 二进制
+- [x] 十六进制
+- [x] 位与字节
+- [x] 有符号数
+- [x] 补码
+- [x] 浮点数
+- [x] 字符编码
+- [x] ASCII
+- [x] Unicode
+- [x] UTF-8
 
 ### 基本逻辑
 
-- [ ] AND
-- [ ] OR
-- [ ] NOT
-- [ ] XOR
-- [ ] 布尔代数
-- [ ] 逻辑门
+- [x] AND
+- [x] OR
+- [x] NOT
+- [x] XOR
+- [x] 布尔代数
+- [x] 逻辑门
 
 ### 互动实验方向
 
@@ -71,23 +71,23 @@
 
 ### 组成与执行
 
-- [ ] CPU
-- [ ] ALU
-- [ ] Register
-- [ ] Program Counter
-- [ ] Instruction
-- [ ] Instruction Fetch
-- [ ] Decode
-- [ ] Execute
-- [ ] Memory
-- [ ] Bus
-- [ ] Cache
-- [ ] Cache Line
-- [ ] Locality
-- [ ] Branch Prediction
-- [ ] Pipeline
-- [ ] Interrupt
-- [ ] DMA
+- [x] CPU
+- [x] ALU
+- [x] Register
+- [x] Program Counter
+- [x] Instruction
+- [x] Instruction Fetch
+- [x] Decode
+- [x] Execute
+- [x] Memory
+- [x] Bus
+- [x] Cache
+- [x] Cache Line
+- [x] Locality
+- [x] Branch Prediction
+- [x] Pipeline
+- [x] Interrupt
+- [x] DMA
 
 ### 互动实验方向
 
@@ -103,44 +103,44 @@
 
 ### 进程
 
-- [ ] Process
-- [ ] PCB
-- [ ] Process State
-- [ ] Context Switch
+- [x] Process
+- [x] PCB
+- [x] Process State
+- [x] Context Switch
 
 ### 线程
 
-- [ ] Thread
-- [ ] User Thread
-- [ ] Kernel Thread
-- [ ] Thread Scheduling
-- [ ] Context Switch
+- [x] Thread
+- [x] User Thread
+- [x] Kernel Thread
+- [x] Thread Scheduling
+- [x] Context Switch
 
 ### 内存
 
-- [ ] Virtual Memory
-- [ ] Page
-- [ ] Page Table
-- [ ] TLB
-- [ ] Page Fault
-- [ ] mmap
+- [x] Virtual Memory
+- [x] Page
+- [x] Page Table
+- [x] TLB
+- [x] Page Fault
+- [x] mmap
 
 ### 文件系统
 
-- [ ] File
-- [ ] inode
-- [ ] Directory
-- [ ] Block
-- [ ] Page Cache
+- [x] File
+- [x] inode
+- [x] Directory
+- [x] Block
+- [x] Page Cache
 
 ### IO
 
-- [ ] Blocking IO
-- [ ] Non-blocking IO
-- [ ] IO Multiplexing
-- [ ] select
-- [ ] poll
-- [ ] epoll
+- [x] Blocking IO
+- [x] Non-blocking IO
+- [x] IO Multiplexing
+- [x] select
+- [x] poll
+- [x] epoll
 
 ### 互动实验方向
 
@@ -156,30 +156,30 @@
 
 ### 网络基础
 
-- [ ] OSI
-- [ ] TCP/IP
-- [ ] Ethernet
-- [ ] ARP
-- [ ] IP
-- [ ] TCP
-- [ ] UDP
-- [ ] DNS
-- [ ] HTTP
-- [ ] HTTPS
-- [ ] TLS
-- [ ] Socket
+- [x] OSI
+- [x] TCP/IP
+- [x] Ethernet
+- [x] ARP
+- [x] IP
+- [x] TCP
+- [x] UDP
+- [x] DNS
+- [x] HTTP
+- [x] HTTPS
+- [x] TLS
+- [x] Socket
 
 ### TCP
 
-- [ ] 三次握手
-- [ ] 四次挥手
-- [ ] Sequence Number
-- [ ] ACK
-- [ ] Sliding Window
-- [ ] Flow Control
-- [ ] Congestion Control
-- [ ] Retransmission
-- [ ] TIME_WAIT
+- [x] 三次握手
+- [x] 四次挥手
+- [x] Sequence Number
+- [x] ACK
+- [x] Sliding Window
+- [x] Flow Control
+- [x] Congestion Control
+- [x] Retransmission
+- [x] TIME_WAIT
 
 ### 互动实验方向
 
@@ -197,29 +197,29 @@
 
 ### 数据结构
 
-- [ ] Array
-- [ ] Linked List
-- [ ] Stack
-- [ ] Queue
-- [ ] Deque
-- [ ] Hash Table
-- [ ] Tree
-- [ ] Binary Tree
-- [ ] BST
-- [ ] Heap
-- [ ] B Tree
-- [ ] B+ Tree
-- [ ] Graph
+- [x] Array
+- [x] Linked List
+- [x] Stack
+- [x] Queue
+- [x] Deque
+- [x] Hash Table
+- [x] Tree
+- [x] Binary Tree
+- [x] BST
+- [x] Heap
+- [x] B Tree
+- [x] B+ Tree
+- [x] Graph
 
 ### 算法
 
-- [ ] Binary Search
-- [ ] Sorting
-- [ ] BFS
-- [ ] DFS
-- [ ] Dijkstra
-- [ ] Dynamic Programming
-- [ ] Greedy
+- [x] Binary Search
+- [x] Sorting
+- [x] BFS
+- [x] DFS
+- [x] Dijkstra
+- [x] Dynamic Programming
+- [x] Greedy
 
 ### 互动实验方向
 
@@ -233,22 +233,22 @@
 
 ### 数据库机制
 
-- [ ] Database
-- [ ] Table
-- [ ] Record
-- [ ] Page
-- [ ] Index
-- [ ] B+Tree
-- [ ] Buffer Pool
-- [ ] WAL
-- [ ] Redo Log
-- [ ] Undo Log
-- [ ] Transaction
-- [ ] ACID
-- [ ] Isolation
-- [ ] Lock
-- [ ] MVCC
-- [ ] Query Optimizer
+- [x] Database
+- [x] Table
+- [x] Record
+- [x] Page
+- [x] Index
+- [x] B+Tree
+- [x] Buffer Pool
+- [x] WAL
+- [x] Redo Log
+- [x] Undo Log
+- [x] Transaction
+- [x] ACID
+- [x] Isolation
+- [x] Lock
+- [x] MVCC
+- [x] Query Optimizer
 
 ## Level 7：MySQL
 
@@ -256,33 +256,33 @@
 
 ### InnoDB 与索引
 
-- [ ] InnoDB
-- [ ] Clustered Index
-- [ ] Secondary Index
-- [ ] B+Tree
-- [ ] Buffer Pool
-- [ ] Redo Log
-- [ ] Undo Log
-- [ ] Binlog
+- [x] InnoDB
+- [x] Clustered Index
+- [x] Secondary Index
+- [x] B+Tree
+- [x] Buffer Pool
+- [x] Redo Log
+- [x] Undo Log
+- [x] Binlog
 
 ### 并发与事务
 
-- [ ] MVCC
-- [ ] Read View
-- [ ] Transaction Isolation
-- [ ] Lock
-- [ ] Gap Lock
-- [ ] Next-Key Lock
+- [x] MVCC
+- [x] Read View
+- [x] Transaction Isolation
+- [x] Lock
+- [x] Gap Lock
+- [x] Next-Key Lock
 
 ### 查询执行
 
-- [ ] EXPLAIN
-- [ ] Optimizer
-- [ ] Cost Model
-- [ ] Join
-- [ ] GROUP BY
-- [ ] ORDER BY
-- [ ] Filesort
+- [x] EXPLAIN
+- [x] Optimizer
+- [x] Cost Model
+- [x] Join
+- [x] GROUP BY
+- [x] ORDER BY
+- [x] Filesort
 
 ### 互动实验方向
 
@@ -302,20 +302,20 @@
 
 ### 核心知识
 
-- [ ] Java Memory Model
-- [ ] Object
-- [ ] Reference
-- [ ] Heap
-- [ ] Stack
-- [ ] Method Area
-- [ ] Class
-- [ ] ClassLoader
-- [ ] Reflection
-- [ ] Exception
-- [ ] Generic
-- [ ] Collection
-- [ ] IO
-- [ ] NIO
+- [x] Java Memory Model
+- [x] Object
+- [x] Reference
+- [x] Heap
+- [x] Stack
+- [x] Method Area
+- [x] Class
+- [x] ClassLoader
+- [x] Reflection
+- [x] Exception
+- [x] Generic
+- [x] Collection
+- [x] IO
+- [x] NIO
 
 ## Level 9：JVM
 
@@ -323,26 +323,26 @@
 
 ### 运行时与内存
 
-- [ ] JVM Architecture
-- [ ] Class Loading
-- [ ] Runtime Data Area
-- [ ] Heap
-- [ ] Stack
-- [ ] Metaspace
-- [ ] Object Layout
+- [x] JVM Architecture
+- [x] Class Loading
+- [x] Runtime Data Area
+- [x] Heap
+- [x] Stack
+- [x] Metaspace
+- [x] Object Layout
 
 ### 回收与优化
 
-- [ ] GC Roots
-- [ ] Reachability
-- [ ] Minor GC
-- [ ] Major GC
-- [ ] Full GC
-- [ ] G1
-- [ ] ZGC
-- [ ] JIT
-- [ ] Escape Analysis
-- [ ] Safepoint
+- [x] GC Roots
+- [x] Reachability
+- [x] Minor GC
+- [x] Major GC
+- [x] Full GC
+- [x] G1
+- [x] ZGC
+- [x] JIT
+- [x] Escape Analysis
+- [x] Safepoint
 
 ### 互动实验方向
 
@@ -361,21 +361,21 @@
 
 ### 并发机制
 
-- [ ] Thread
-- [ ] synchronized
-- [ ] volatile
-- [ ] CAS
-- [ ] Atomic
-- [ ] AQS
-- [ ] ReentrantLock
-- [ ] Condition
-- [ ] CountDownLatch
-- [ ] Semaphore
-- [ ] ThreadPool
-- [ ] BlockingQueue
-- [ ] ConcurrentHashMap
-- [ ] ForkJoinPool
-- [ ] CompletableFuture
+- [x] Thread
+- [x] synchronized
+- [x] volatile
+- [x] CAS
+- [x] Atomic
+- [x] AQS
+- [x] ReentrantLock
+- [x] Condition
+- [x] CountDownLatch
+- [x] Semaphore
+- [x] ThreadPool
+- [x] BlockingQueue
+- [x] ConcurrentHashMap
+- [x] ForkJoinPool
+- [x] CompletableFuture
 
 ### 互动实验方向
 
@@ -394,13 +394,13 @@
 
 ### IO 模型
 
-- [ ] File IO
-- [ ] Stream
-- [ ] Buffer
-- [ ] Channel
-- [ ] Selector
-- [ ] Reactor
-- [ ] Netty
+- [x] File IO
+- [x] Stream
+- [x] Buffer
+- [x] Channel
+- [x] Selector
+- [x] Reactor
+- [x] Netty
 
 ## Level 12：Spring
 
@@ -408,15 +408,15 @@
 
 ### 容器与框架
 
-- [ ] IoC
-- [ ] DI
-- [ ] Bean
-- [ ] BeanFactory
-- [ ] ApplicationContext
-- [ ] AOP
-- [ ] Proxy
-- [ ] Transaction
-- [ ] Spring MVC
+- [x] IoC
+- [x] DI
+- [x] Bean
+- [x] BeanFactory
+- [x] ApplicationContext
+- [x] AOP
+- [x] Proxy
+- [x] Transaction
+- [x] Spring MVC
 
 ## Level 13：Spring Boot
 
@@ -424,13 +424,13 @@
 
 ### 自动配置与应用
 
-- [ ] Auto Configuration
-- [ ] Starter
-- [ ] Configuration
-- [ ] Web
-- [ ] Validation
-- [ ] Actuator
-- [ ] Configuration Properties
+- [x] Auto Configuration
+- [x] Starter
+- [x] Configuration
+- [x] Web
+- [x] Validation
+- [x] Actuator
+- [x] Configuration Properties
 
 ## Level 14：Redis
 
@@ -438,24 +438,24 @@
 
 ### 数据结构
 
-- [ ] Redis 数据结构
-- [ ] String
-- [ ] List
-- [ ] Hash
-- [ ] Set
-- [ ] ZSet
-- [ ] Skip List
+- [x] Redis 数据结构
+- [x] String
+- [x] List
+- [x] Hash
+- [x] Set
+- [x] ZSet
+- [x] Skip List
 
 ### 存储与高可用
 
-- [ ] Expiration
-- [ ] Eviction
-- [ ] Persistence
-- [ ] RDB
-- [ ] AOF
-- [ ] Replication
-- [ ] Sentinel
-- [ ] Cluster
+- [x] Expiration
+- [x] Eviction
+- [x] Persistence
+- [x] RDB
+- [x] AOF
+- [x] Replication
+- [x] Sentinel
+- [x] Cluster
 
 ## Level 15：消息队列
 
@@ -463,18 +463,18 @@
 
 ### 消息模型
 
-- [ ] Producer
-- [ ] Consumer
-- [ ] Broker
-- [ ] Topic
-- [ ] Partition
-- [ ] Offset
-- [ ] Consumer Group
-- [ ] At-least-once
-- [ ] At-most-once
-- [ ] Exactly-once
-- [ ] Kafka
-- [ ] RabbitMQ
+- [x] Producer
+- [x] Consumer
+- [x] Broker
+- [x] Topic
+- [x] Partition
+- [x] Offset
+- [x] Consumer Group
+- [x] At-least-once
+- [x] At-most-once
+- [x] Exactly-once
+- [x] Kafka
+- [x] RabbitMQ
 
 ## Level 16：分布式系统
 
@@ -482,24 +482,24 @@
 
 ### 一致性与协调
 
-- [ ] CAP
-- [ ] BASE
-- [ ] Consistency
-- [ ] Availability
-- [ ] Partition Tolerance
-- [ ] Distributed Lock
-- [ ] Distributed Transaction
-- [ ] Consensus
-- [ ] Raft
+- [x] CAP
+- [x] BASE
+- [x] Consistency
+- [x] Availability
+- [x] Partition Tolerance
+- [x] Distributed Lock
+- [x] Distributed Transaction
+- [x] Consensus
+- [x] Raft
 
 ### 韧性与治理
 
-- [ ] Service Discovery
-- [ ] Load Balancing
-- [ ] Retry
-- [ ] Timeout
-- [ ] Circuit Breaker
-- [ ] Rate Limiting
+- [x] Service Discovery
+- [x] Load Balancing
+- [x] Retry
+- [x] Timeout
+- [x] Circuit Breaker
+- [x] Rate Limiting
 
 ## Level 17：高级 Java 后端
 
@@ -507,22 +507,22 @@
 
 ### 工程实践
 
-- [ ] 高并发
-- [ ] 高性能
-- [ ] 缓存
-- [ ] 数据库优化
-- [ ] JVM 调优
-- [ ] GC 调优
-- [ ] 线程池设计
-- [ ] 异步化
-- [ ] 分布式缓存
-- [ ] 分布式锁
-- [ ] MQ
-- [ ] 分布式事务
-- [ ] 微服务
-- [ ] 可观测性
-- [ ] 性能分析
-- [ ] 故障排查
+- [x] 高并发
+- [x] 高性能
+- [x] 缓存
+- [x] 数据库优化
+- [x] JVM 调优
+- [x] GC 调优
+- [x] 线程池设计
+- [x] 异步化
+- [x] 分布式缓存
+- [x] 分布式锁
+- [x] MQ
+- [x] 分布式事务
+- [x] 微服务
+- [x] 可观测性
+- [x] 性能分析
+- [x] 故障排查
 
 ## 一个实验的完成标准
 

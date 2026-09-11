@@ -1,22 +1,31 @@
 <script setup lang="ts">
-import { useId } from 'vue'
+import { computed, useId } from 'vue'
 import type { TreeScene } from '../../types/experiment'
 const props = defineProps<{ scene: TreeScene }>()
 const uid = useId().replace(/:/g, '')
 const node = (id: string) => props.scene.nodes.find((n) => n.id === id)!
+const bplus = computed(() => !props.scene.variant || props.scene.variant === 'bplus')
+const description = computed(() =>
+  bplus.value
+    ? 'B+Tree 当前结构，所有记录保存在叶子层'
+    : props.scene.variant === 'bst'
+      ? '二叉搜索树，左子树小于节点，右子树大于节点'
+      : '最小堆，父节点不大于子节点',
+)
 </script>
 <template>
   <div class="tree-scene scene-grid">
     <div class="tree-legend">
-      <span><i />内部节点 · 导航</span><span><i class="leaf" />叶子节点 · 记录</span
+      <span><i />{{ bplus ? '内部节点 · 导航' : '分支节点 · 数据' }}</span
+      ><span><i class="leaf" />叶子节点 · {{ bplus ? '记录' : '数据' }}</span
       ><span><i class="path" />访问路径</span>
     </div>
-    <div class="tree-scroll" tabindex="0" role="region" aria-label="可横向滚动的 B+Tree">
+    <div class="tree-scroll" tabindex="0" role="region" :aria-label="'可横向滚动的树结构 · ' + description">
       <svg
         :viewBox="'0 0 ' + scene.width + ' ' + scene.height"
         :style="{ minWidth: scene.width + 'px' }"
         role="img"
-        aria-label="B+Tree 当前结构，所有记录保存在叶子层"
+        :aria-label="description"
       >
         <defs>
           <marker
@@ -88,7 +97,7 @@ const node = (id: string) => props.scene.nodes.find((n) => n.id === id)!
               :x="n.x - n.width / 2 + (i + 0.5) * (n.width / n.keys.length)"
               :y="n.y + 25"
               class="tree-key"
-              :class="{ found: n.leaf && scene.found === key }"
+              :class="{ found: (n.leaf || !bplus) && scene.found === key }"
             >
               {{ key }}
             </text>

@@ -86,6 +86,75 @@ test('cache visualizes real line fills and compares identical workloads', async 
   await goalReached(page)
 })
 
+test('pipeline exposes a load-use bubble, compares execution and completes the learning loop', async ({
+  page,
+}) => {
+  await open(page, 'pipeline')
+  for (let i = 0; i < 4; i++) await page.getByRole('button', { name: '推进 1 个周期' }).click()
+  await expect(metric(page, '数据停顿')).toContainText('1')
+  await expect(page.locator('.stage-card').filter({ hasText: 'EX' })).toContainText('气泡')
+  const register = (name: string) =>
+    page
+      .locator('.pipeline-storage .registers > div')
+      .filter({ has: page.getByText(name, { exact: true }) })
+      .locator('strong')
+  await expect(register('R1')).toHaveText('0')
+  await page.getByRole('button', { name: '推进 1 个周期' }).click()
+  await expect(register('R1')).toHaveText('21')
+  await expect(register('R2')).toHaveText('0')
+  await page.getByRole('button', { name: '运行至结束', exact: true }).click()
+  await expect(metric(page, '时钟周期')).toHaveText('9')
+  await expect(register('R3')).toHaveText('63')
+  await page.getByRole('button', { name: '对比三种执行方式' }).click()
+  const rows = page.locator('.pipeline-comparison tbody tr')
+  await expect(rows.nth(0).locator('td').first()).toHaveText('20')
+  await expect(rows.nth(1).locator('td').first()).toHaveText('14')
+  await expect(rows.nth(2).locator('td').first()).toHaveText('9')
+  await goalReached(page)
+  await page.getByRole('tab', { name: /Challenge/ }).click()
+  await expect(metric(page, '时钟周期')).toHaveText('9')
+  await page.getByRole('radio', { name: /LOAD 的数据要到 MEM 结束/ }).check()
+  await page.getByRole('button', { name: '验证我的理解' }).click()
+  await page.getByRole('button', { name: '完成本课', exact: true }).click()
+  await page.reload()
+  await expect(page.getByRole('button', { name: '已完成', exact: true })).toBeVisible()
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true)
+})
+
+test('branch prediction separates training, validates custom input and compares strategies', async ({
+  page,
+}) => {
+  await open(page, 'branch-prediction')
+  await page.getByRole('button', { name: '先预测下一次分支' }).click()
+  await expect(page.locator('.branch-decision')).toContainText('预测 N · 等待揭晓')
+  await expect(page.locator('.predictor-state.current')).toContainText('01 · 弱不跳转')
+  await expect(metric(page, '已揭晓分支')).toHaveText('0 / 15')
+  await expect(metric(page, '预测失败')).toContainText('0')
+  await page.getByRole('button', { name: '揭晓结果并更新预测器' }).click()
+  await expect(page.locator('.predictor-state.current')).toContainText('10 · 弱跳转')
+  await expect(metric(page, '预测失败')).toContainText('1')
+  await page.getByLabel('实际分支序列 / T 或 N').fill('TTX')
+  await page.getByLabel('实际分支序列 / T 或 N').press('Tab')
+  await expect(page.locator('.experiment-feedback')).toContainText('请输入 1–64 个 T 或 N')
+  await expect(page.getByRole('button', { name: '运行剩余分支' })).toBeDisabled()
+  await page.getByLabel('实际分支序列 / T 或 N').fill('TTNNTTNN')
+  await page.getByLabel('实际分支序列 / T 或 N').press('Tab')
+  await expect(metric(page, '已揭晓分支')).toHaveText('0 / 8')
+  await page.getByRole('button', { name: '运行剩余分支' }).click()
+  await page.getByRole('button', { name: '对比三种预测策略' }).click()
+  const rows = page.locator('.prediction-comparison tbody tr')
+  await expect(rows.nth(1).locator('td').nth(1)).toHaveText('4')
+  await expect(rows.nth(2).locator('td').nth(1)).toHaveText('6')
+  await expect(metric(page, '额外周期')).toHaveText('12')
+  await goalReached(page)
+  await page.getByRole('tab', { name: /Challenge/ }).click()
+  await page.getByRole('radio', { name: /仍预测跳转/ }).check()
+  await page.getByRole('button', { name: '验证我的理解' }).click()
+  await page.getByRole('button', { name: '完成本课', exact: true }).click()
+  await expect(page.getByRole('button', { name: '已完成', exact: true })).toBeDisabled()
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true)
+})
+
 test('process wakeup does not immediately preempt the running thread', async ({ page }) => {
   await open(page, 'process')
   await page.getByRole('button', { name: '调度 Ready 线程' }).click()
@@ -98,6 +167,93 @@ test('process wakeup does not immediately preempt the running thread', async ({ 
     page.locator('.thread-card').filter({ hasText: 'Thread 1' }).locator('.state-pill'),
   ).toHaveText('Ready')
   await goalReached(page)
+})
+
+test('scheduling compares real completion metrics and validates edited workloads', async ({ page }) => {
+  await open(page, 'scheduling')
+  await page.getByLabel('任务 / 到达:时长').fill('0:0')
+  await page.getByLabel('任务 / 到达:时长').press('Tab')
+  await expect(page.locator('.experiment-feedback')).toContainText('请输入 1–8')
+  await expect(page.getByRole('button', { name: '运行全部任务' })).toBeDisabled()
+  await page.getByLabel('任务 / 到达:时长').fill('0:8, 1:4, 2:2')
+  await page.getByLabel('任务 / 到达:时长').press('Tab')
+  await page.getByRole('button', { name: '运行全部任务' }).click()
+  await expect(metric(page, '平均等待时间')).toHaveText('5.67')
+  await page.getByRole('button', { name: '对比四种调度策略' }).click()
+  await expect(page.locator('[data-table="scheduling-comparison"] tbody tr')).toHaveCount(4)
+  await goalReached(page)
+  await page.getByRole('tab', { name: /Challenge/ }).click()
+  await page.getByRole('radio', { name: /等待 3，响应 3/ }).check()
+  await page.getByRole('button', { name: '验证我的理解' }).click()
+  await page.getByRole('button', { name: '完成本课', exact: true }).click()
+  await page.reload()
+  await expect(page.getByRole('button', { name: '已完成', exact: true })).toBeVisible()
+})
+
+test('page replacement exposes Belady anomaly and independent comparisons', async ({ page }) => {
+  await open(page, 'page-replacement')
+  await page.getByRole('button', { name: '运行全部访问' }).click()
+  await expect(metric(page, '缺页次数')).toHaveText('9')
+  await page.getByLabel('物理帧数').fill('4')
+  await expect(metric(page, '已访问')).toHaveText('0 / 12')
+  await page.getByRole('button', { name: '运行全部访问' }).click()
+  await expect(metric(page, '缺页次数')).toHaveText('10')
+  await page.getByRole('button', { name: '对比四种置换策略' }).click()
+  await expect(page.locator('[data-table="replacement-comparison"] tbody tr')).toHaveCount(4)
+  await goalReached(page)
+  await page.getByRole('tab', { name: /Challenge/ }).click()
+  await page.getByRole('radio', { name: /FIFO 的驻留集合/ }).check()
+  await page.getByRole('button', { name: '验证我的理解' }).click()
+  await page.getByRole('button', { name: '完成本课', exact: true }).click()
+  await expect(page.getByRole('button', { name: '已完成', exact: true })).toBeDisabled()
+})
+
+test('TCP reliability repairs a gap and waits for the application window update', async ({ page }) => {
+  await open(page, 'tcp-reliability')
+  await page.getByLabel('下一次故障', { exact: true }).selectOption('data')
+  for (let i = 0; i < 4; i++) await page.getByRole('button', { name: '发送下一段', exact: true }).click()
+  await page.getByRole('button', { name: '发送累计 ACK / 窗口更新', exact: true }).click()
+  await expect(metric(page, '已确认字节')).toHaveText('0')
+  await expect(page.getByRole('button', { name: '发送下一段', exact: true })).toBeDisabled()
+  await page.getByRole('button', { name: '触发 RTO · 重传最早未确认段' }).click()
+  await page.getByRole('button', { name: '发送累计 ACK / 窗口更新', exact: true }).click()
+  await expect(metric(page, '已确认字节')).toHaveText('400')
+  for (let i = 0; i < 4; i++) await page.getByRole('button', { name: '应用读取 1 段' }).click()
+  await expect(page.getByRole('button', { name: '发送下一段', exact: true })).toBeDisabled()
+  await page.getByRole('button', { name: '发送累计 ACK / 窗口更新', exact: true }).click()
+  for (let i = 0; i < 4; i++) await page.getByRole('button', { name: '发送下一段', exact: true }).click()
+  await page.getByRole('button', { name: '发送累计 ACK / 窗口更新', exact: true }).click()
+  for (let i = 0; i < 4; i++) await page.getByRole('button', { name: '应用读取 1 段' }).click()
+  await expect(metric(page, '已确认字节')).toHaveText('800')
+  await expect(metric(page, 'RTO 重传次数')).toHaveText('1')
+  await goalReached(page)
+  await page.getByRole('tab', { name: /Challenge/ }).click()
+  await page.getByRole('radio', { name: /按原序号识别重复/ }).check()
+  await page.getByRole('button', { name: '验证我的理解' }).click()
+  await page.getByRole('button', { name: '完成本课', exact: true }).click()
+  await expect(page.getByRole('button', { name: '已完成', exact: true })).toBeDisabled()
+})
+
+test('TCP congestion distinguishes ACK growth, fast recovery and an RTO', async ({ page }) => {
+  await open(page, 'tcp-congestion')
+  for (let i = 0; i < 2; i++) {
+    await page.getByRole('button', { name: '发送一轮数据' }).click()
+    await page.getByRole('button', { name: '收到整轮新 ACK' }).click()
+  }
+  await page.getByRole('button', { name: '发送一轮数据' }).click()
+  await page.getByRole('button', { name: '收到 3 次重复 ACK' }).click()
+  await expect(metric(page, '拥塞控制阶段')).toHaveText('快速恢复')
+  await page.getByRole('button', { name: '确认重传 · 退出快速恢复' }).click()
+  await expect(metric(page, '拥塞窗口')).toContainText('2.00')
+  await page.getByRole('button', { name: '发送一轮数据' }).click()
+  await page.getByRole('button', { name: '触发 RTO 超时', exact: true }).click()
+  await expect(metric(page, '拥塞窗口')).toContainText('1.00')
+  await goalReached(page)
+  await page.getByRole('tab', { name: /Challenge/ }).click()
+  await page.getByRole('radio', { name: /根据实际 FlightSize/ }).check()
+  await page.getByRole('button', { name: '验证我的理解' }).click()
+  await page.getByRole('button', { name: '完成本课', exact: true }).click()
+  await expect(page.getByRole('button', { name: '已完成', exact: true })).toBeDisabled()
 })
 
 test('virtual memory separates a TLB miss from a recoverable page fault', async ({ page }) => {
@@ -227,14 +383,20 @@ test('Tutor is an honest local adapter, with accessible dialog and author hints'
   expect(outgoing).toEqual([])
 })
 
-test('roadmap distinguishes planned concepts and hash links survive reload', async ({ page }) => {
+test('roadmap links covered concepts and hash links survive reload', async ({ page }) => {
   await open(page, 'binary', 'learn')
   await page.getByRole('link', { name: /有符号数与补码/ }).click()
-  await expect(page).toHaveURL(/#\/roadmap\?level=1/)
+  await expect(page).toHaveURL(/#\/learn\/signed-number/)
+  await page.reload()
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('127 加 1')
+  await page.goto('#/roadmap?level=1')
   await expect(page.locator('#level-1')).toHaveClass(/highlighted/)
   await expect(page.locator('.roadmap-level')).toHaveCount(18)
   await page.reload()
   await expect(page.locator('#level-1')).toBeVisible()
+  await page.goto('#/roadmap?level=5')
+  await page.locator('#level-5').getByRole('link', { name: 'BFS', exact: true }).click()
+  await expect(page).toHaveURL(/#\/learn\/graph/)
   await page.goto('#/learn/not-a-course')
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('这个地址，还没有映射。')
 })
@@ -263,16 +425,45 @@ test('navigation, keyboard bits, and corrupted storage remain usable on narrow s
 test('representative learning views meet automated WCAG A and AA checks', async ({ page }) => {
   test.setTimeout(90_000)
   for (const slug of [
+    'modeling',
     'binary',
+    'signed-number',
+    'floating-point',
+    'encoding',
+    'logic',
+    'interrupt-dma',
+    'filesystem',
+    'page-cache',
+    'io-multiplexing',
+    'network-layers',
+    'tls',
+    'database-pages',
+    'wal',
+    'transactions',
+    'query-optimizer',
     'cpu',
+    'pipeline',
+    'branch-prediction',
     'cache',
     'process',
+    'scheduling',
     'virtual-memory',
+    'page-replacement',
     'tcp-handshake',
     'tcp-close',
+    'tcp-reliability',
+    'tcp-congestion',
     'dns',
     'http',
     'btree',
+    'linear-storage',
+    'stack-queue',
+    'hash-table',
+    'binary-search',
+    'sorting',
+    'trees-heaps',
+    'graph',
+    'dynamic-programming',
   ]) {
     await open(page, slug, 'learn')
     const result = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze()

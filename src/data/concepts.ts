@@ -3,7 +3,6 @@ import type { ConceptReference } from '../types/course'
 
 const planned: ConceptReference[] = [
   { id: 'signed-number', title: '有符号数与补码', level: 1 },
-  { id: 'pipeline', title: '指令流水线', level: 2 },
   { id: 'process', title: '进程', level: 3 },
   { id: 'thread', title: '线程', level: 3 },
   { id: 'context-switch', title: '上下文切换', level: 3 },
@@ -29,7 +28,7 @@ const planned: ConceptReference[] = [
   { id: 'clustered-index', title: 'InnoDB 聚簇索引', level: 7 },
   { id: 'java-thread', title: 'Java Thread', level: 10 },
   { id: 'jmm', title: 'Java Memory Model', level: 10 },
-  { id: 'volatile', title: 'volatile', level: 10 },
+  { id: 'volatile', title: 'volatile 发布与可见性', level: 10 },
   { id: 'cas', title: 'CAS', level: 10 },
   { id: 'aqs', title: 'AQS', level: 10 },
   { id: 'reentrant-lock', title: 'ReentrantLock', level: 10 },

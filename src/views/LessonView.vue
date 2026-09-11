@@ -237,7 +237,7 @@ function readPrinciples() {
               >{{ next.title }}</span
             ><Icon name="arrow" /></RouterLink
           ><RouterLink v-else to="/roadmap" class="next-lesson"
-            ><span><small>下一段旅程</small>探索长期路线</span><Icon name="arrow"
+            ><span><small>连接更多知识</small>回看完整学习路线</span><Icon name="arrow"
           /></RouterLink>
         </nav>
       </div>
