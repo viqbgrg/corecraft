@@ -173,12 +173,12 @@ tbody th {
   color: var(--success);
 }
 .warning {
-  background: #fff7e6;
-  color: #805818;
+  background: var(--warning-surface);
+  color: var(--warning);
 }
 .danger {
-  background: #fcefed;
-  color: #a13d36;
+  background: var(--danger-surface);
+  color: var(--danger);
 }
 @media (max-width: 600px) {
   .data-scene {

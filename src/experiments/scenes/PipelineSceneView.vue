@@ -133,8 +133,8 @@ function stageAt(cycle: PipelineCycle, instruction: number): string {
   background: var(--green-pale);
 }
 .stage-card.waiting {
-  border-color: #d9c590;
-  background: #fff7e2;
+  border-color: var(--warning-border);
+  background: var(--warning-surface);
 }
 .stage-card strong {
   display: block;
@@ -150,7 +150,7 @@ function stageAt(cycle: PipelineCycle, instruction: number): string {
 }
 .stage-card small {
   font-size: 11px;
-  color: #765716;
+  color: var(--warning);
 }
 .pipeline-caption {
   font-size: 12px;
@@ -215,8 +215,8 @@ td.active {
   color: var(--green);
 }
 td.stalled {
-  background: #fff1cc;
-  color: #765716;
+  background: var(--warning-selected);
+  color: var(--warning);
 }
 td.committed {
   background: var(--green);

@@ -5,6 +5,22 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#f8fbfa" />
+    <script>
+      // Apply the saved theme before styles load to avoid a light flash on dark pages.
+      ;(() => {
+        let preference = 'system'
+        try {
+          preference = localStorage.getItem('corecraft.theme.v1') ?? 'system'
+        } catch {
+          // Fall back to the system theme when browser storage is unavailable.
+        }
+        document.documentElement.dataset.theme =
+          preference === 'dark' ||
+          (preference !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches)
+            ? 'dark'
+            : 'light'
+      })()
+    </script>
     <meta
       name="description"
       content="CoreCraft — 通过互动实验理解计算机原理。从翻转一个比特，到构建自己的计算机模型。"

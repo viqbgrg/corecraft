@@ -57,8 +57,10 @@ function geometry(edge: GraphScene['edges'][number]) {
           :cx="node.x"
           :cy="node.y"
           r="21"
-          :fill="node.current ? '#fff0ce' : node.visited ? 'var(--green-pale)' : 'var(--surface)'"
-          :stroke="node.current ? '#9d6d1a' : 'var(--green)'"
+          :fill="
+            node.current ? 'var(--warning-selected)' : node.visited ? 'var(--green-pale)' : 'var(--surface)'
+          "
+          :stroke="node.current ? 'var(--warning)' : 'var(--green)'"
           stroke-width="2"
         />
         <text :x="node.x" :y="node.y + 5" class="node-name">{{ node.id }}</text>

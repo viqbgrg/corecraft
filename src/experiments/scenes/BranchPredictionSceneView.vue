@@ -224,8 +224,8 @@ function direction(taken: boolean): string {
   color: var(--green);
 }
 .outcome-sequence .missed {
-  background: #fff1cc;
-  color: #765716;
+  background: var(--warning-selected);
+  color: var(--warning);
 }
 .outcome-sequence .pending {
   outline: 2px solid var(--green);
@@ -277,8 +277,8 @@ td {
   font-family: var(--mono);
 }
 tbody tr.missed {
-  background: #fff7e2;
-  color: #765716;
+  background: var(--warning-surface);
+  color: var(--warning);
 }
 .prediction-comparison tbody th {
   text-align: left;

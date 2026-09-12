@@ -3,8 +3,10 @@ import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { courses } from '../courses'
 import { useProgress } from '../composables/useProgress'
+import { useTheme } from '../composables/useTheme'
 import Icon from '../components/Icon.vue'
 const route = useRoute()
+const { preference, resolvedTheme } = useTheme()
 const mobileNav = ref(false)
 const mobileQuery = window.matchMedia('(max-width: 800px)')
 const smallScreen = ref(mobileQuery.matches)
@@ -60,14 +62,28 @@ function focusMain() {
         >学习空间</RouterLink
       ><RouterLink to="/roadmap" active-class="active">学习路线<Icon name="map" :size="15" /></RouterLink>
     </nav>
-    <a
-      class="github-link"
-      aria-label="CoreCraft GitHub 仓库（新窗口）"
-      href="https://github.com/viqbgrg/corecraft"
-      target="_blank"
-      rel="noopener noreferrer"
-      ><Icon name="github" :size="20" /><span>GitHub</span><Icon name="external" :size="13"
-    /></a>
+    <div class="header-actions">
+      <label class="theme-switcher">
+        <Icon
+          :name="preference === 'system' ? 'monitor' : resolvedTheme === 'dark' ? 'moon' : 'sun'"
+          :size="16"
+        />
+        <span>主题</span>
+        <select v-model="preference" aria-label="切换主题">
+          <option value="system">跟随系统</option>
+          <option value="light">浅色</option>
+          <option value="dark">深色</option>
+        </select>
+      </label>
+      <a
+        class="github-link"
+        aria-label="CoreCraft GitHub 仓库（新窗口）"
+        href="https://github.com/viqbgrg/corecraft"
+        target="_blank"
+        rel="noopener noreferrer"
+        ><Icon name="github" :size="20" /><span>GitHub</span><Icon name="external" :size="13"
+      /></a>
+    </div>
   </header>
   <div class="workspace">
     <button v-if="mobileNav" class="nav-backdrop" aria-label="关闭课程导航" @click="mobileNav = false" />
