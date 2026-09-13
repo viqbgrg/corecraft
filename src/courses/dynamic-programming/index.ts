@@ -7,7 +7,7 @@ export default {
   englishTitle: 'Greedy and Dynamic Programming',
   level: 5,
   category: '算法',
-  duration: 22,
+  duration: 30,
   description: '用找零问题比较贪心选择与最优子问题，回溯真实的硬币组合。',
   question: '面额 1、3、4，凑出 6 时先拿 4 为什么会多用一枚？',
   objectives: ['用反例检验贪心选择', '定义状态、初值和转移', '从最优子问题回溯一个完整解'],

@@ -7,7 +7,7 @@ export default {
   englishTitle: 'Page Replacement',
   level: 3,
   category: '操作系统',
-  duration: 20,
+  duration: 25,
   description: '观察 FIFO、LRU、Clock 与最优策略如何选择牺牲页。',
   question: '多给一个物理帧，缺页次数一定减少吗？',
   objectives: ['区分进入顺序与使用顺序', '逐次观察引用位与 Clock 指针', '用同一序列验证 Belady 异常'],

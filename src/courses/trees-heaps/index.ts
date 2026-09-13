@@ -7,7 +7,7 @@ export default {
   englishTitle: 'Search Trees and Heaps',
   level: 5,
   category: '数据结构',
-  duration: 22,
+  duration: 30,
   description: '维护左小右大与父不大于子的不同约束，观察插入、查找和删除。',
   question: '最小堆的根是最小值，为什么仍不能像 BST 一样查找任意键？',
   objectives: ['区分二叉树形状与排序约束', '删除 BST 的双子节点并维护大小关系', '用上浮和下沉维护最小堆'],

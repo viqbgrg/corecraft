@@ -7,7 +7,7 @@ export default {
   englishTitle: 'BFS, DFS and Dijkstra',
   level: 5,
   category: '算法',
-  duration: 24,
+  duration: 30,
   description: '修改图的边与方向，观察队列、栈和最小距离选择如何改变路径。',
   question: '经过的边最少，路径的总权重就一定最小吗？',
   objectives: ['用队列和栈解释 BFS 与 DFS', '按非负权重执行 Dijkstra 松弛', '处理环、方向和不可达顶点'],

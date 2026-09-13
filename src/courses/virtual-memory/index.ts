@@ -8,7 +8,7 @@ export default {
   englishTitle: 'An Address, Translated',
   level: 3,
   category: '操作系统',
-  duration: 16,
+  duration: 25,
   description: '拆开一个地址，穿过 TLB 和页表，找到数据真正的位置。',
   question: '两个进程使用相同的地址，为什么不会读到同一份数据？',
   objectives: ['把虚拟地址拆为页号与页内偏移', '区分 TLB Miss 和 Page Fault', '完成一次缺页处理与访问重试'],

@@ -7,7 +7,7 @@ export default {
   englishTitle: 'Hash Tables and Tombstones',
   level: 5,
   category: '数据结构',
-  duration: 20,
+  duration: 25,
   description: '沿线性探测链查找、删除和扩容，观察墓碑为什么不能直接变空。',
   question: '删除键 1，为什么可能让仍然存在的键 8 消失？',
   objectives: ['区分哈希值相同与键相同', '通过墓碑保持探测链', '扩容后重新计算所有存活键的位置'],

@@ -36,9 +36,11 @@ CoreCraft 让你通过改变一个可视化模型的输入与步骤，观察计�
 
 81 节可操作课程已覆盖 Level 0–17 的全部路线主题，从学习方法、计算机基础、操作系统、网络与算法，延伸到数据库、MySQL、Java / JVM / 并发 / NIO、Spring / Boot、Redis、消息队列、分布式系统及后端性能与故障诊断。每课包含 Markdown 原理解释、实验目标、观察记录、挑战题和知识关联。
 
+其中 20 节基础课程已进一步补充手算推导、状态与操作对照表、可复现的实验步骤、预期结果、边界反例和课后自检，覆盖二进制与逻辑、CPU / 缓存、进程 / 虚拟内存、TCP / DNS / HTTP，以及基础数据结构和算法。具体范围见[课程交付清单](docs/course-delivery.md#基础课程内容深化)。
+
 | 课程                                                                                                              | 可以亲手操作什么                                                                       |
 | ----------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
-| [01 Computation and Mental Models](https://viqbgrg.github.io/corecraft/#/learn/modeling)                          | 可编辑程序、状态预测、跳转循环、输出与停机                                             |
+| [01 Computation and Mental Models](https://viqbgrg.github.io/corecraft/#/learn/modeling)                          | 从加法认识输入、暂存与输出；改变数据与规则，预测每一步                                 |
 | [02 Binary & Bits](https://viqbgrg.github.io/corecraft/#/learn/binary)                                            | 二进制、位操作、加法进位与十六进制表示                                                 |
 | [03 Two’s Complement and Overflow](https://viqbgrg.github.io/corecraft/#/learn/signed-number)                     | 补码逐位加减、Carry 与 Overflow 的边界反例                                             |
 | [04 Floating Point and Rounding](https://viqbgrg.github.io/corecraft/#/learn/floating-point)                      | 精确有理数舍入、binary32 编码、次正规数与误差                                          |

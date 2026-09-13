@@ -8,7 +8,7 @@ export default {
   englishTitle: 'Closer is Faster',
   level: 2,
   category: '计算机组成',
-  duration: 15,
+  duration: 25,
   description: '改变访问顺序，亲眼看到“更近的数据”为什么更快。',
   question: 'CPU 为什么不每次都直接读取内存？',
   objectives: [

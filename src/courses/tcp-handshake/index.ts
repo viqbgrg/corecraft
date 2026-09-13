@@ -8,7 +8,7 @@ export default {
   englishTitle: 'A Reliable Beginning',
   level: 4,
   category: '网络与协议',
-  duration: 18,
+  duration: 25,
   description: '亲手发送每一个报文，在不可靠的网络上建立共同认知。',
   question: 'Server 已经收到 SYN，为什么还需要最后一次 ACK？',
   objectives: [

@@ -1583,6 +1583,7 @@ progress::-moz-progress-bar {
   color: var(--text);
   font-size: 14px;
   line-height: 2.05;
+  overflow-wrap: anywhere;
 }
 .lesson-markdown h2 {
   font-size: 16px;
@@ -1594,6 +1595,13 @@ progress::-moz-progress-bar {
 .lesson-markdown h2:first-child {
   margin-top: 0;
 }
+.lesson-markdown h3 {
+  margin: 23px 0 10px;
+  color: var(--ink);
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.7;
+}
 .lesson-markdown p {
   margin-bottom: 15px;
 }
@@ -1601,7 +1609,9 @@ progress::-moz-progress-bar {
   color: var(--ink);
   font-weight: 500;
 }
-.lesson-markdown ol {
+.lesson-markdown ol,
+.lesson-markdown ul {
+  margin-bottom: 15px;
   padding-left: 21px;
 }
 .lesson-markdown li {
@@ -1615,6 +1625,44 @@ progress::-moz-progress-bar {
   border-radius: 4px;
   padding: 1px 4px;
   color: var(--green);
+}
+.lesson-markdown pre {
+  margin: 16px 0;
+  padding: 15px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--surface-soft);
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.8;
+  white-space: pre-wrap;
+}
+.lesson-markdown pre code {
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+}
+.lesson-markdown table {
+  width: 100%;
+  margin: 16px 0;
+  border-collapse: collapse;
+  font-size: 13px;
+  line-height: 1.8;
+}
+.lesson-markdown th,
+.lesson-markdown td {
+  padding: 9px 10px;
+  border: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+  overflow-wrap: break-word;
+}
+.lesson-markdown th {
+  background: var(--surface-muted);
+  color: var(--ink);
+  font-weight: 500;
 }
 .concept-details {
   margin: 26px 0;

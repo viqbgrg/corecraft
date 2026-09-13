@@ -8,7 +8,7 @@ export default {
   englishTitle: 'From URL to Response',
   level: 4,
   category: '网络与协议',
-  duration: 16,
+  duration: 25,
   description: '把 DNS、TCP、TLS 和 HTTP 串起来，跟踪一次完整请求。',
   question: '在地址栏按下回车后，为什么还没发 HTTP 就可能失败？',
   objectives: [

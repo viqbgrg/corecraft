@@ -7,7 +7,7 @@ export default {
   englishTitle: 'Sorting and Stability',
   level: 5,
   category: '算法',
-  duration: 22,
+  duration: 30,
   description: '逐步执行插入、选择和归并排序，保留原始编号观察稳定性。',
   question: '两个元素的值相等，排序后为什么还要关心它们的先后？',
   objectives: ['分别观察比较与写入次数', '解释归并中的辅助空间', '通过原始编号验证稳定性'],

@@ -1,9 +1,10 @@
 import { describe, expect, it } from 'vitest'
 import {
   initialModeling,
-  machineStep,
+  modelingEngine,
+  modelingStep,
   modelingTransition,
-  parseMachineProgram,
+  presentModeling,
 } from '../../src/experiments/models/modeling'
 import {
   initialSigned,
@@ -33,32 +34,112 @@ import {
   truthTable,
 } from '../../src/experiments/models/logic'
 
-describe('programmable state machine', () => {
-  it('checks predictions against the actual next state and runs a conditional loop', () => {
+describe('introductory input and rule model', () => {
+  it('separates reading, processing and output, and checks a prediction against the actual next value', () => {
     const initial = initialModeling(),
       snapshot = structuredClone(initial)
-    let s = modelingTransition(initial, { type: 'predict' })
+    expect(initial).toMatchObject({ current: null, output: null, step: 0 })
+    expect(modelingTransition(initial, { type: 'predict' })).toBe(initial)
+    let s = modelingStep(initial)
     expect(initial).toEqual(snapshot)
-    expect(s).toMatchObject({ accumulator: 3, pc: 1, correct: 1, predictions: 1 })
-    s = modelingTransition(s, { type: 'run' })
-    expect(s).toMatchObject({ accumulator: 0, pc: 4, steps: 11, output: [3, 2, 1], halted: true })
-    expect(machineStep(s)).toBe(s)
-    const wrong = modelingTransition({ ...initial, guess: 9 }, { type: 'predict' })
-    expect(wrong).toMatchObject({ accumulator: 3, correct: 0, predictions: 1 })
+    expect(s).toMatchObject({ input: 3, current: 3, output: null, step: 1 })
+    s = modelingTransition(s, { type: 'guess', value: 5 })
+    s = modelingTransition(s, { type: 'predict' })
+    expect(s).toMatchObject({ current: 5, output: null, step: 2, correct: 1, predictions: 1, guess: null })
+    expect(presentModeling(s).goal.reached).toBe(false)
+    s = modelingStep(s)
+    expect(s).toMatchObject({ input: 3, current: 5, output: 5, step: 3 })
+    expect(presentModeling(s).goal.reached).toBe(true)
+    expect(modelingStep(s)).toBe(s)
+    expect(modelingTransition(s, { type: 'run' })).toBe(s)
   })
-  it('pauses a live loop without falsely marking it halted and rejects invalid jumps', () => {
-    const loop = modelingTransition(initialModeling('SET 1; JNZ 1'), { type: 'run' })
-    expect(loop).toMatchObject({ halted: false, paused: true, pc: 1, steps: 200 })
-    expect(modelingTransition(loop, { type: 'run' }).steps).toBe(400)
-    expect(parseMachineProgram('IN; JNZ 2')).toBeNull()
-    expect(parseMachineProgram('eval(1)')).toBeNull()
-    const missingHalt = modelingTransition(initialModeling('IN; OUT'), { type: 'run' })
-    expect(missingHalt.error).toContain('PC 已越过')
-    expect(modelingTransition(missingHalt, { type: 'program', value: 'IN; OUT; HALT' })).toMatchObject({
-      pc: 0,
-      output: [],
-      error: null,
-    })
+
+  it('does not count an incorrect prediction or running without a prediction as completing the goal', () => {
+    const read = modelingStep(initialModeling())
+    const wrong = modelingStep({ ...read, guess: 3 }, true)
+    expect(wrong).toMatchObject({ current: 5, correct: 0, predictions: 1 })
+    expect(wrong.log.at(-1)?.tone).toBe('warning')
+    expect(presentModeling(modelingTransition(wrong, { type: 'run' })).goal.reached).toBe(false)
+    const completed = modelingTransition(initialModeling(), { type: 'run' })
+    expect(completed.output).toBe(5)
+    expect(presentModeling(completed).goal.reached).toBe(false)
+  })
+
+  it.each([
+    ['add', 5],
+    ['double', 6],
+    ['add-double', 10],
+    ['double-add', 8],
+  ] as const)('executes the selected %s rule in order', (rule, output) => {
+    const s = modelingTransition(initialModeling(3, 2, rule), { type: 'run' })
+    expect(s).toMatchObject({ input: 3, output, current: output })
+    expect(s.step).toBe(rule.includes('-') ? 4 : 3)
+  })
+
+  it('clears observations and completion evidence when input, rules or the run change', () => {
+    const read = modelingStep(initialModeling())
+    const completed = modelingTransition(modelingStep({ ...read, guess: 5 }, true), { type: 'run' })
+    expect(presentModeling(completed).goal.reached).toBe(true)
+    for (const action of [
+      { type: 'input', value: 4 },
+      { type: 'amount', value: 4 },
+      { type: 'rule', value: 'double' },
+      { type: 'restart' },
+    ]) {
+      const restarted = modelingTransition(completed, action)
+      expect(restarted).toMatchObject({
+        current: null,
+        output: null,
+        step: 0,
+        predictions: 0,
+        correct: 0,
+        log: [],
+      })
+      expect(presentModeling(restarted).goal.reached).toBe(false)
+    }
+    const changedInput = modelingTransition(completed, { type: 'input', value: 4 })
+    expect(changedInput).toMatchObject({ input: 4, amount: 2, rule: 'add' })
+    expect(modelingTransition(changedInput, { type: 'run' }).output).toBe(6)
+    const changedRule = modelingTransition(changedInput, { type: 'amount', value: 4 })
+    expect(changedRule.input).toBe(4)
+    expect(modelingTransition(changedRule, { type: 'run' }).output).toBe(8)
+  })
+
+  it('accepts zero as data and output, and preserves custom settings when starting again', () => {
+    let zero = modelingStep(initialModeling(0, 0))
+    zero = modelingStep({ ...zero, guess: 0 }, true)
+    zero = modelingStep(zero)
+    expect(zero.output).toBe(0)
+    expect(presentModeling(zero).goal.reached).toBe(true)
+    const scene = presentModeling(zero).scene
+    if (scene.kind !== 'data') throw new Error('Expected a data scene')
+    expect(scene.cards?.find((card) => card.id === 'output')?.value).toBe(0)
+    const session = modelingEngine({ input: 20, amount: 10, rule: 'add-double' })
+    const initial = session.view()
+    session.dispatch({ type: 'run' })
+    expect(session.view().status.detail).toContain('60')
+    session.dispatch({ type: 'restart' })
+    expect(session.view()).toEqual(initial)
+    session.dispatch({ type: 'run' })
+    session.reset()
+    expect(session.view()).toEqual(initial)
+  })
+
+  it('rejects invalid inputs and rules without advancing, and recovers after a correction', () => {
+    const initial = initialModeling()
+    for (const value of ['', -1, 21, 1.5, 'not a number']) {
+      const invalid = modelingTransition(initial, { type: 'input', value })
+      expect(invalid.error).toBeTruthy()
+      expect(invalid.input).toBe(3)
+      expect(modelingTransition(invalid, { type: 'run' })).toBe(invalid)
+      expect(modelingTransition(invalid, { type: 'input', value: 4 })).toEqual(initialModeling(4))
+    }
+    expect(modelingTransition(initial, { type: 'amount', value: 11 }).error).toBeTruthy()
+    expect(modelingTransition(initial, { type: 'rule', value: '__proto__' }).error).toBeTruthy()
+    expect(modelingTransition(initial, { type: 'guess', value: 100 }).error).toBeTruthy()
+    expect(modelingTransition({ ...initial, guess: 5 }, { type: 'guess', value: '' }).guess).toBeNull()
+    for (const config of [{ input: 21 }, { amount: -1 }, { rule: 'unknown' }, { input: true }])
+      expect(() => modelingEngine(config)).toThrow()
   })
 })
 

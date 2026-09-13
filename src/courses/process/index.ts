@@ -8,7 +8,7 @@ export default {
   englishTitle: 'Sharing the CPU',
   level: 3,
   category: '操作系统',
-  duration: 15,
+  duration: 25,
   description: '让线程轮流拿到 CPU，观察运行、等待与上下文切换。',
   question: '一个 CPU，为什么能让多个程序看起来同时运行？',
   objectives: [

@@ -13,6 +13,12 @@ function metric(page: Page, label: string) {
     .filter({ has: page.getByText(label, { exact: true }) })
     .locator('strong')
 }
+function dataValue(page: Page, label: string) {
+  return page
+    .locator('.data-cards > div')
+    .filter({ has: page.getByText(label, { exact: true }) })
+    .locator('dd.mono')
+}
 async function edit(page: Page, label: string, value: string) {
   await page.getByLabel(label, { exact: true }).fill(value)
   await page.getByLabel(label, { exact: true }).press('Tab')
@@ -27,21 +33,57 @@ async function finish(page: Page, answer: RegExp) {
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true)
 }
 
-test('a predicted machine step leads to a real loop, output and halt', async ({ page }) => {
+test('a beginner can follow reading, processing and output, then explain a changed input', async ({
+  page,
+}) => {
   await open(page, 'modeling')
-  await page.getByLabel('预测下一步 ACC').fill('3')
-  await page.getByRole('button', { name: '验证预测并单步', exact: true }).click()
+  await expect(dataValue(page, '当前记住的数')).toHaveText('还没读取')
+  await expect(dataValue(page, '输出')).toHaveText('还没显示')
+  await expect(page.getByRole('button', { name: '验证预测并执行下一步' })).toBeDisabled()
+  await page.getByRole('button', { name: '执行下一步', exact: true }).click()
+  await expect(dataValue(page, '当前记住的数')).toHaveText('3')
+  await page.getByLabel('预测下一步记住的数').fill('5')
+  await page.getByRole('button', { name: '验证预测并执行下一步', exact: true }).click()
   await expect(metric(page, '正确预测 / 总预测')).toHaveText('1 / 1')
-  await page.getByRole('button', { name: '运行至 HALT / 最多 200 步' }).click()
-  await expect(metric(page, '输出项数')).toHaveText('3')
-  await expect(metric(page, '已执行指令')).toHaveText('11')
-  await expect(metric(page, '机器状态')).toHaveText('HALT')
-  await finish(page, /SUB 改变 ACC/)
-  await page.getByRole('tab', { name: /Experiment/ }).click()
-  await edit(page, '程序 / 分号分隔指令', 'SET 1; JNZ 1')
-  await page.getByRole('button', { name: '运行至 HALT / 最多 200 步' }).click()
-  await expect(metric(page, '机器状态')).toHaveText('预算暂停')
+  await expect(dataValue(page, '输入')).toHaveText('3')
+  await expect(dataValue(page, '当前记住的数')).toHaveText('5')
+  await expect(dataValue(page, '输出')).toHaveText('还没显示')
   await expect(page.locator('.experiment-goal')).not.toHaveClass(/reached/)
+  await page.getByRole('button', { name: '执行下一步', exact: true }).click()
+  await expect(dataValue(page, '输出')).toHaveText('5')
+  await expect(metric(page, '已完成步骤')).toHaveText('3 / 3')
+  await expect(metric(page, '实验进度')).toHaveText('已完成')
+  await finish(page, /输入数据变了，程序仍按同一条加 2 规则处理/)
+  await page.getByRole('tab', { name: /Experiment/ }).click()
+  await edit(page, '输入的数字', '4')
+  await expect(metric(page, '正确预测 / 总预测')).toHaveText('0 / 0')
+  await expect(dataValue(page, '输出')).toHaveText('还没显示')
+  await page.getByRole('button', { name: '完成剩余步骤' }).click()
+  await expect(dataValue(page, '输出')).toHaveText('6')
+  await expect(page.locator('.experiment-goal')).not.toHaveClass(/reached/)
+  await page.getByRole('button', { name: '用相同设置再试一次' }).click()
+  await expect(page.getByLabel('输入的数字', { exact: true })).toHaveValue('4')
+  await expect(metric(page, '已完成步骤')).toHaveText('0 / 3')
+})
+
+test('changing the rule or its order recomputes from the same input', async ({ page }) => {
+  await open(page, 'modeling')
+  await page.getByLabel('处理规则').selectOption('add-double')
+  await page.getByRole('button', { name: '完成剩余步骤' }).click()
+  await expect(dataValue(page, '输出')).toHaveText('10')
+  await page.getByLabel('处理规则').selectOption('double-add')
+  await expect(dataValue(page, '当前记住的数')).toHaveText('还没读取')
+  await page.getByRole('button', { name: '完成剩余步骤' }).click()
+  await expect(dataValue(page, '输入')).toHaveText('3')
+  await expect(dataValue(page, '输出')).toHaveText('8')
+  await edit(page, '加多少', '4')
+  await page.getByRole('button', { name: '完成剩余步骤' }).click()
+  await expect(dataValue(page, '输出')).toHaveText('10')
+  await page.getByLabel('处理规则').selectOption('double')
+  await expect(page.getByLabel('加多少')).toHaveCount(0)
+  await page.getByRole('button', { name: '完成剩余步骤' }).click()
+  await expect(dataValue(page, '输出')).toHaveText('6')
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true)
 })
 
 test('signed arithmetic keeps carry separate from overflow', async ({ page }) => {

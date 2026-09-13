@@ -8,7 +8,7 @@ export default {
   englishTitle: 'Binary & Bits',
   level: 1,
   category: '计算机基础',
-  duration: 12,
+  duration: 20,
   description: '从翻转一个比特开始，认识计算机表达世界的方式。',
   question: '为什么计算机偏爱 0 和 1，而不是我们熟悉的十进制？',
   objectives: [

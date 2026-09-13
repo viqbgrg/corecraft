@@ -8,7 +8,7 @@ export default {
   englishTitle: 'Inside the CPU',
   level: 2,
   category: '计算机组成',
-  duration: 15,
+  duration: 25,
   description: '跟随一条 ADD 指令，看数据如何变成一次真实的计算。',
   question: '程序里的一行 ADD，究竟让 CPU 内部发生了什么？',
   objectives: ['区分取指、译码、执行和写回', '观察 PC 与寄存器改变的时机', '跟踪寄存器与内存间的数据流'],

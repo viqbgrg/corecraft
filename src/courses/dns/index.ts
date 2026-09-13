@@ -8,7 +8,7 @@ export default {
   englishTitle: 'Finding the Right Address',
   level: 4,
   category: '网络与协议',
-  duration: 12,
+  duration: 20,
   description: '从一个域名出发，沿着转介与缓存一步步找到答案。',
   question: '根 DNS 不知道所有 IP，为什么仍然能帮你找到目标？',
   objectives: [

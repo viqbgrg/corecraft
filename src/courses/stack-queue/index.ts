@@ -7,7 +7,7 @@ export default {
   englishTitle: 'Stacks, Queues and Deques',
   level: 5,
   category: '数据结构',
-  duration: 16,
+  duration: 20,
   description: '改变两端的访问规则，观察后进先出、先进先出与槽位复用。',
   question: 'head 与 tail 相等，队列究竟是空还是满？',
   objectives: ['用操作顺序区分栈与队列', '理解双端队列允许哪些操作', '用 size 区分环形缓冲的满与空'],

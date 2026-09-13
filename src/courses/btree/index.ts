@@ -8,7 +8,7 @@ export default {
   englishTitle: 'Built for Fewer Reads',
   level: 5,
   category: '数据结构',
-  duration: 20,
+  duration: 30,
   description: '亲手插入、查找、删除，看一棵树怎样始终保持平衡。',
   question: '数据库索引为什么偏爱一棵“矮而宽”的树？',
   objectives: [

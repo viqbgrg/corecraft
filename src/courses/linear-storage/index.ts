@@ -7,7 +7,7 @@ export default {
   englishTitle: 'Arrays and Linked Lists',
   level: 5,
   category: '数据结构',
-  duration: 18,
+  duration: 25,
   description: '把逻辑顺序与物理位置分开，比较搬移元素和修改链接。',
   question: '链表插入只改两个链接，为什么按索引插入仍可能很慢？',
   objectives: ['区分索引位置与节点链接', '观察插入删除如何维护顺序', '把定位成本与修改成本分开计算'],

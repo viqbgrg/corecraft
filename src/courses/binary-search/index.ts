@@ -7,7 +7,7 @@ export default {
   englishTitle: 'Binary Search Invariants',
   level: 5,
   category: '算法',
-  duration: 16,
+  duration: 25,
   description: '在有序数组中寻找第一个不小于目标的位置，观察候选区间逐次缩小。',
   question: '中点已经等于目标，为什么还要继续向左找？',
   objectives: ['验证输入有序这一前提', '维护半开区间的不变量', '区分匹配位置与未找到时的插入点'],

@@ -7,7 +7,7 @@ export default {
   englishTitle: 'Boolean Algebra and Logic Gates',
   level: 1,
   category: '基本逻辑',
-  duration: 18,
+  duration: 25,
   description: '逐门计算布尔表达式，穷举真值表，用一个反例推翻错误的等价猜想。',
   question: '!(A & B) 为什么等于 !A | !B，而不是 !A & !B？',
   objectives: ['用逻辑门组合布尔函数', '理解德摩根定律和优先级', '区分一个样例与完整真值表证明'],

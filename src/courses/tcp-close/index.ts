@@ -8,7 +8,7 @@ export default {
   englishTitle: 'Closing Both Directions',
   level: 4,
   category: '网络与协议',
-  duration: 15,
+  duration: 25,
   description: '关闭一条连接之前，先看清两个独立的数据方向。',
   question: '为什么“收到你的 FIN”，不代表“我也没有数据要发了”？',
   objectives: [
